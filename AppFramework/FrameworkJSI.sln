@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{44A73C57-9821-47E6-A0C7-08145C32619C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{882E35E7-FA83-4FD4-ACBE-1DF6893C1876}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BI", "BI", "{B1944933-471D-443E-8040-CA98089DA7BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{887B5900-8693-4ED8-B6E2-F3B5889E78B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusConsole.UI", "ConsoleApplication1\JusConsole.UI.csproj", "{BC4148F4-EAC2-433A-B109-79009EA13A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusNucleo.Bl", "JusNucleo.Bl\JusNucleo.Bl.csproj", "{8D78451C-F92A-4DCB-BB13-D32349A7FF09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusFramework", "JusFramework\JusFramework.csproj", "{BC10DA72-60B6-4797-A813-8E1540D899D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusFramework.Bl", "JusFramework.Bl\JusFramework.Bl.csproj", "{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusFramework.Dal", "JusFramework.Dal\JusFramework.Dal.csproj", "{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBPackage", "DBPackage", "{42D89C37-1412-438E-9A4D-CF94BB18D404}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seguridad", "Seguridad", "{CE8419D1-6CBE-403F-B330-BAD76F99DE52}"
+	ProjectSection(SolutionItems) = preProject
+		DataBasePackage\Seguridad\pkg_seg_cuenta.sql = DataBasePackage\Seguridad\pkg_seg_cuenta.sql
+		DataBasePackage\Seguridad\pkg_seg_seguridad.sql = DataBasePackage\Seguridad\pkg_seg_seguridad.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusFramework.test", "JsiFramework.test\JusFramework.test.csproj", "{39092C61-A143-43C8-9E70-BB972A683964}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusUserFront.UI", "JusUserFront.UI\JusUserFront.UI.csproj", "{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC4148F4-EAC2-433A-B109-79009EA13A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4148F4-EAC2-433A-B109-79009EA13A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4148F4-EAC2-433A-B109-79009EA13A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4148F4-EAC2-433A-B109-79009EA13A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D78451C-F92A-4DCB-BB13-D32349A7FF09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D78451C-F92A-4DCB-BB13-D32349A7FF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D78451C-F92A-4DCB-BB13-D32349A7FF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D78451C-F92A-4DCB-BB13-D32349A7FF09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC10DA72-60B6-4797-A813-8E1540D899D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC10DA72-60B6-4797-A813-8E1540D899D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC10DA72-60B6-4797-A813-8E1540D899D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC10DA72-60B6-4797-A813-8E1540D899D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39092C61-A143-43C8-9E70-BB972A683964}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39092C61-A143-43C8-9E70-BB972A683964}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39092C61-A143-43C8-9E70-BB972A683964}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39092C61-A143-43C8-9E70-BB972A683964}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC10DA72-60B6-4797-A813-8E1540D899D3} = {882E35E7-FA83-4FD4-ACBE-1DF6893C1876}
+		{1CEE8B05-F5D5-40A3-B24C-6AC4BE5A942F} = {882E35E7-FA83-4FD4-ACBE-1DF6893C1876}
+		{69A67C2E-03D1-4C6A-97B0-3A7E7D62023F} = {882E35E7-FA83-4FD4-ACBE-1DF6893C1876}
+		{8D78451C-F92A-4DCB-BB13-D32349A7FF09} = {B1944933-471D-443E-8040-CA98089DA7BD}
+		{BC4148F4-EAC2-433A-B109-79009EA13A00} = {887B5900-8693-4ED8-B6E2-F3B5889E78B5}
+		{39092C61-A143-43C8-9E70-BB972A683964} = {887B5900-8693-4ED8-B6E2-F3B5889E78B5}
+		{CEE973D5-3804-40BF-89DC-F3E48DA3FFFC} = {887B5900-8693-4ED8-B6E2-F3B5889E78B5}
+		{CE8419D1-6CBE-403F-B330-BAD76F99DE52} = {42D89C37-1412-438E-9A4D-CF94BB18D404}
+	EndGlobalSection
+EndGlobal

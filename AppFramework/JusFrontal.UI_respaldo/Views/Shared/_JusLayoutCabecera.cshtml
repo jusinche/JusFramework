@@ -1,0 +1,21 @@
+﻿@using System.Globalization
+@using Microsoft.AspNet.Identity
+@using JusFrontal.UI.Extensions.MenuGenerador
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Bienvenido " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li>
+                @Html.ActionLink(@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(DateTime.Now.ToString("dddd, dd-MMM-yyyy")),"","")
+                
+            </li>
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Salir</a></li>
+        </ul>
+    }
+}

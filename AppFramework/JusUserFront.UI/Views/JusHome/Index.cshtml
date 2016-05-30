@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>FRAMEWORK JUS NEGOCIO</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- DataTables CSS -->
+    <link href="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")" rel="stylesheet" type="text/css" />
+    <!-- DataTables Responsive CSS -->
+    <link href="@Url.Content("~/bower_components/datatables-responsive/css/dataTables.responsive.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/bower_components/morrisjs/morris.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/bower_components/jquery/dist/jquery.min.js")"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="@Url.Content("~/bower_components/metisMenu/dist/metisMenu.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/_jusFrontApp.js")"></script>
+
+</head>
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+    @Html.Action("JusNavbar", "JusHome", new {user = Request.RequestContext.HttpContext.User.Identity.Name})
+
+    <div id="page-wrapper" style="padding: 3px">
+
+    @if (Request.IsAuthenticated)
+{
+    
+
+        <ul class='tabs' id="headerTabs">
+            <li>
+                <a href='#tab0'>
+                    Principal
+                </a>
+            </li>
+            @*<li>
+                    <a href='#tab1'>
+                        Tab 1
+                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
+                    </a>
+                </li>
+                <li>
+                    <a href='#tab2'>
+                        Tab 2
+                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href='#tab3'>
+                        Tab 3
+                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
+                    </a>
+                </li>*@
+        </ul>
+        <div id="bodyTabs">
+            <div id='tab0' class="tab_content">
+                <div>AQUI VA LA BIENVENIDA</div>
+                <div>AQUI VA LA BIENVENIDA</div>
+                <div>AQUI VA LA BIENVENIDA</div>
+                <div>AQUI VA LA BIENVENIDA</div>
+            </div>
+        </div>
+}
+else
+{
+            @Html.Action("Login", "JusHome", new {user = Request.RequestContext.HttpContext.User.Identity.Name})
+        }
+
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+
+
+<!-- /#wrapper -->
+    <!-- DataTables JavaScript -->
+    <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="@Url.Content("~/bower_components/datatables/media/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
+
+    <!-- Custom Theme JavaScript -->
+<script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<style>
+    .tab_content {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        margin-top: 10px;
+        min-height: 100%;
+        height: 100%;
+    }
+   .tab_content iframe {
+            float: left;
+            min-height: 100%;
+            height: 100%;
+            padding: 0px;
+        }
+    .tabs {
+        padding: 0px;
+        border-bottom: 1px solid #6E6E6E;
+        height: 100%;
+    }
+        .tabs li {
+            display: inline;
+            list-style: none;
+        }
+
+            .tabs li a {
+                color: #337ab7 !important;
+                font-size: 14px;
+                background: #eee;
+                list-style-image: none !important;
+                height: 100%;
+                border: 1px solid #6E6E6E;
+                border-bottom: 1px solid transparent;
+                border-top-right-radius: 1em;
+                border-top-left-radius: 1em;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 0px;
+                padding-top: 0px;
+                height: 100%;
+            }
+                .tabs li a.active {
+                    color: #337ab7 !important;
+                    font-size: 15px;
+                    font-weight: bold;
+                    height: 100%;
+                    background-color: white;
+                    border: 1px solid #6E6E6E;
+                    border-bottom: 1px solid transparent;
+                    border-top-right-radius: 1em;
+                    border-top-left-radius: 1em;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    padding-bottom: 0px;
+                    padding-top: 0px;
+                    height: 100%;
+                }
+                
+
+</style>
+<script>
+
+
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    var cerrarTab = function(obj) {
+        var tabContentId = $(obj).parent().attr("href");
+        $(obj).parent().parent().remove(); //remove li of tab
+       // $('#myTab a:last').tab('show'); // Select first tab
+        $(tabContentId).remove();
+        //$('a[href=#' + idTab + ']').click();
+    }
+
+    var crearTab = function(url, nombre) {
+        var idTab = ((url + nombre).replace(/([/]|[.]|[:]|[ ])/g, '')).toLowerCase();
+        var tabExistente = document.getElementById(idTab);
+        
+        if (tabExistente == null) {
+            var imgPath = getPathApp('Recursos/Imagenes/close_icon.png');
+            $("#headerTabs").append('<li><a href="#' + idTab + '">' + nombre + '<span onclick="return cerrarTab(this);">' +
+            '<img src="' + imgPath + '" height="15" width="18" style="padding-left: 1px;" alt="x"/></span></a></li>');
+            $("#bodyTabs").append('<div id="' + idTab + '" class="tab_content"><iframe src="' + url + '"></iframe></div>');
+        }
+        $('a[href=#' + idTab + ']').click();
+        return true;
+    }
+    
+
+</script>
+    <script>$('ul.tabs').each(function () {
+    // For each set of tabs, we want to keep track of
+    // which tab is active and its associated content
+    var $active, $content, $links = $(this).find('a');
+
+    // If the location.hash matches one of the links, use that as the active tab.
+    // If no match is found, use the first link as the initial active tab.
+    $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
+    $active.addClass('active');
+    $content = $($active[0].hash);
+
+    // Hide the remaining content
+    $links.not($active).each(function () {
+        $(this.hash).hide();
+    });
+
+    // Bind the click event handler
+    $(this).on('click', 'a', function (e) {
+        // Make the old tab inactive.
+        $active.removeClass('active');
+        $content.hide();
+
+        // Update the variables with the new link and content
+        $active = $(this);
+        $content = $(this.hash);
+
+        // Make the tab active.
+        $active.addClass('active');
+        $content.show();
+
+        // Prevent the anchor's default click action
+        e.preventDefault();
+    });
+});</script>
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
