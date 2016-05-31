@@ -32,12 +32,18 @@ namespace JusNucleo.Bl.Personas
         }
          */
 
-        public static readonly PropertyInfo<int> TipoIdenticacionProperty = RegisterProperty<int>(p => p.TipoIdentificacion, RelationshipTypes.PrivateField);
-        private int _tipoIdentificacion = TipoIdenticacionProperty.DefaultValue;
+        public static readonly PropertyInfo<int> TipoIdentificacionProperty = RegisterProperty<int>(p => p.TipoIdentificacion);
         public int TipoIdentificacion
         {
-            get { return GetProperty(TipoIdenticacionProperty, _tipoIdentificacion); }
-            set { SetProperty(TipoIdenticacionProperty, ref _tipoIdentificacion, value); }
+            get { return GetProperty(TipoIdentificacionProperty); }
+            set { SetProperty(TipoIdentificacionProperty, value); }
+        }
+
+        public static readonly PropertyInfo<string> IdenticacionProperty = RegisterProperty<string>(p => p.Identificacion);
+        public string Identificacion
+        {
+            get { return GetProperty(IdenticacionProperty); }
+            set { SetProperty(IdenticacionProperty, value); }
         }
 
         public static readonly PropertyInfo<string> PrimerNombreProperty = RegisterProperty<string>(p => p.PrimerNombre);
@@ -74,6 +80,20 @@ namespace JusNucleo.Bl.Personas
         {
             get { return GetProperty(FechaNacimientoProperty); }
             set { SetProperty(FechaNacimientoProperty, value); }
+        }
+
+        public static readonly PropertyInfo<int> GeneroProperty = RegisterProperty<int>(p => p.Genero);
+        public int Genero
+        {
+            get { return GetProperty(GeneroProperty); }
+            set { SetProperty(GeneroProperty, value); }
+        }
+
+        public static readonly PropertyInfo<int> EstadoCivilProperty = RegisterProperty<int>(p => p.EstadoCivil);
+        public int EstadoCivil
+        {
+            get { return GetProperty(EstadoCivilProperty); }
+            set { SetProperty(EstadoCivilProperty, value); }
         }
 
         #endregion
@@ -170,7 +190,7 @@ namespace JusNucleo.Bl.Personas
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_DeleteSelf()
         {
-            DataPortal_Delete(this.TipoIdentificacion);
+            DataPortal_Delete(this.Id);
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]

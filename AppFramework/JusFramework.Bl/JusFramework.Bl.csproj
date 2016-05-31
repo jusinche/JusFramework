@@ -54,7 +54,6 @@
     <Compile Include="JusBusinessBaseEChild.cs" />
     <Compile Include="JusBusinessBase.cs" />
     <Compile Include="JusCriteriaBase.cs" />
-    <Compile Include="JusObjectFactory.cs" />
     <Compile Include="JusReadOnlyBase.cs" />
     <Compile Include="JusReadOnlyListBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

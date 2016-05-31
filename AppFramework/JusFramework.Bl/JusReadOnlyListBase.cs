@@ -33,6 +33,17 @@ namespace JusFramework.Bl
             RaiseListChangedEvents = true;
         }
 
+        protected void Child_Fetch(object criteria)
+        {
+            RaiseListChangedEvents = false;
+            IsReadOnly = false;
+
+            GetData(criteria);
+
+            IsReadOnly = true;
+            RaiseListChangedEvents = true;
+        }
+        
 
         //public new void Add(TCr item)
         //{
@@ -97,6 +108,16 @@ namespace JusFramework.Bl
         }
 
         public static T Get(object criteria)
+        {
+            return DataPortal.FetchChild<T>(criteria);
+        }
+
+        public static T Get(string criteria)
+        {
+            return DataPortal.FetchChild<T>(criteria);
+        }
+
+        public static T Get(int criteria)
         {
             return DataPortal.FetchChild<T>(criteria);
         }

@@ -75,6 +75,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BlTest\Comun\CatalogoTest.cs" />
+    <Compile Include="BlTest\PersonaBlTest\PersonaTest.cs" />
     <Compile Include="MongoTest\MongoDbTest.cs" />
     <Compile Include="Seguridad\MenuTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

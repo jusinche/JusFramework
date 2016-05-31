@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using JusFramework.Cache;
 using MongoDB.Driver;
@@ -22,6 +23,7 @@ namespace JusFramework.Dal.JusMongoDB
             var cliente = new MongoClient(ConnectionString);
             //// Get a reference to a server object from the Mongo client object
             _mongoServer = cliente.GetDatabase(DatabaseName);
+            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
         }
 
 
@@ -36,14 +38,13 @@ namespace JusFramework.Dal.JusMongoDB
             info.Gruop = group;
             info.Id = Guid.NewGuid();
 
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
+            
              _mongoCollection.InsertOne(info);
 
         }
 
         public void RemoveItem(string key, string group = null)
         {
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
             _mongoCollection.DeleteOne(x => x.Key == key);
         }
 
@@ -57,8 +58,16 @@ namespace JusFramework.Dal.JusMongoDB
 
         public bool Contains(string key, string @group = null)
         {
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
-            return _mongoCollection.Find(x => x.Key == key).ToList().Count!=0;
+            var cache = _mongoCollection.Find(x => x.Key == key).ToList();
+           
+            if (cache.First().CreateDate.Date.Ticks != DateTime.Now.Date.Ticks)
+            {
+                //borrar cache
+                _mongoCollection.DeleteOne(x => x.Key == key);
+                return false;
+            }
+
+            return cache.Count!=0;
         }
 
         public void Clear(string @group = null)
@@ -68,7 +77,6 @@ namespace JusFramework.Dal.JusMongoDB
 
         public  object GetData(string key, string @group = null)
         {
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
             var lista = _mongoCollection.Find(x => x.Key == key).ToList();
 
             foreach (CacheDataInfo info in lista)
@@ -80,7 +88,6 @@ namespace JusFramework.Dal.JusMongoDB
 
         public int GetTotalOfItems(string @group = null)
         {
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
             return _mongoCollection.Find(x=>x.Key !=String.Empty).ToList().Count;
         }
 
