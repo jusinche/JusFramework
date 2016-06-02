@@ -45,18 +45,12 @@ namespace JusFramework.Bl
         }
         
 
-        //public new void Add(TCr item)
-        //{
-        //    base.Add(item);
-        //}
-
         private void GetData(object criteria)
         {
             var key = Getkey(criteria);
             ICache cache = ServiceLocator.Current.GetInstance<ICache>();
             if (cache.Contains(key))
             {
-                // dr = cache.GetData(key);
                 var itsCache = (IList<TCr>)cache.GetData(key);
                 foreach (var cr in itsCache)
                 {
@@ -70,12 +64,12 @@ namespace JusFramework.Bl
                 Comando = Db.CreateSPCommand(NombreProcedimiento);
 
                 //setear los parametros
-                MethodInfo methodInfo = this.GetType()
+                MethodInfo methodInfo = GetType()
                     .GetMethod(NombreMetodo, BindingFlags.NonPublic | BindingFlags.Instance,
                         Type.DefaultBinder, new[] {criteria.GetType()}, null);
                 if (methodInfo != null)
                 {
-                    methodInfo.Invoke(this, new object[] {criteria});
+                    methodInfo.Invoke(this, new [] {criteria});
                 }
                 else
                 {
@@ -91,9 +85,11 @@ namespace JusFramework.Bl
                         Add(JusReadOnlyBase<TCr>.Get(dr));
                     }
                 }
-                cache.AddItem(key, Items);
+                if (Items.Count > 1)
+                {
+                    cache.AddItem(key, Items);
+                }
             }
-
         }
 
         private string Getkey(object criteria)
@@ -102,8 +98,6 @@ namespace JusFramework.Bl
             {
                 return ((ICacheable) criteria).GetKey();
             }
-            //if (criteria.GetType().IsPrimitive)
-            //return string.Format("{0}_{1}", GetType(),criteria);
             return string.Format("{0}_{1}", GetType(), criteria);
         }
 

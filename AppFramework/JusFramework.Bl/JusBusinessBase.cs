@@ -43,13 +43,24 @@ namespace JusFramework.Bl
             return DataPortal.Create<T>();
         }
 
+
+        public static T Get(int id)
+        {
+            return DataPortal.Fetch<T>(id);
+        }
+
         #region Data Access
 
-        protected static readonly string NombreMetodo = "AddParameterCriteria";
+        private static readonly string _nombreMetodo = "AddParameterCriteria";
         protected abstract string ObtenerSp { get; }
         protected abstract string ActualizarSp { get; }
         protected abstract string InsertarSp { get; }
         protected abstract string BorrarSp { get; }
+
+        protected static string NombreMetodo
+        {
+            get { return _nombreMetodo; }
+        }
 
         [NonSerialized]
         protected  DatabaseConection Db;
@@ -62,23 +73,23 @@ namespace JusFramework.Bl
             Comando = Db.CreateSPCommand(ObtenerSp);
 
             //setear los parametros
-            MethodInfo methodInfo = this.GetType().GetMethod(NombreMetodo, BindingFlags.NonPublic | BindingFlags.Instance,
+            MethodInfo methodInfo = GetType().GetMethod(_nombreMetodo, BindingFlags.NonPublic | BindingFlags.Instance,
                 Type.DefaultBinder, new[] { criteria.GetType() }, null);
             if (methodInfo != null)
             {
-                methodInfo.Invoke(this, new object[] { criteria });
+                methodInfo.Invoke(this, new [] { criteria });
             }
             else
             {
                 throw new JusException(String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
-                    NombreMetodo, criteria.GetType()));
+                    _nombreMetodo, criteria.GetType()));
             }
             
             using (var dr = Db.ExecuteDataReader(Comando))
                 
                 while (dr.Read())
                 {
-                    addCommonData(dr);
+                    AddCommonData(dr);
                     AddObjPost((dr));
                     if (dr.NextResult())
                     {
@@ -87,10 +98,10 @@ namespace JusFramework.Bl
                 }
         }
 
-        protected void addCommonData(IDataReader dr)
+        protected void AddCommonData(IDataReader dr)
         {
             Id = Convert.ToInt32(dr["n_id"]);
-            Version = Convert.ToInt32(dr["n_VERSION"]);
+            Version = Convert.ToInt32(dr["n_version"]);
         }
 
         protected abstract void AddObjPost(IDataReader data);
@@ -103,7 +114,11 @@ namespace JusFramework.Bl
         /// <summary>
         /// agrega los parametrso de insert
         /// </summary>
-        protected void AddInsertParameters(){}
+        protected void AddInsertParameters()
+        {
+            Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
+            Db.AddParameter(Comando, "sn_id", DbType.Int32, ParameterDirection.Output);
+        }
 
         /// <summary>
         /// agrega parametros de update
@@ -117,7 +132,6 @@ namespace JusFramework.Bl
         }
 
 
-        [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
             //crear la conexion a la base
@@ -140,13 +154,11 @@ namespace JusFramework.Bl
             
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_DeleteSelf()
         {
-            DataPortal_Delete(this.Id);
+            DataPortal_Delete(Id);
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
         protected void DataPortal_Delete(int criteria)
         {
             // TODO: delete values

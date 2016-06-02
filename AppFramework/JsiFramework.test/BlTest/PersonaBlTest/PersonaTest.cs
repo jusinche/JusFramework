@@ -40,10 +40,18 @@ namespace JusFramework.test.BlTest.PersonaBlTest
             System.Diagnostics.Trace.WriteLine("T3:" + ((t4 - t3) / 1000));
             System.Diagnostics.Trace.WriteLine("T3:" + ((t4 - t1) / 1000));
 
-            var persona1= persona.Save();
+             persona.Save();
+
+            var personaCriteria = PersonaNaturalCriteria.New();
+            var personaList = PersonaNaturalList.Get(personaCriteria);
+
+            var id=personaList.First(x => x.Identificacion == persona.Identificacion).Id;
+
+            var persona1 = PersonaNatural.Get(id);
 
             Assert.AreEqual(persona1.Identificacion, persona.Identificacion);
             Assert.AreNotEqual(persona1.Id, 0);
+            Assert.AreNotEqual(personaList.Count, 0);
         }
     }
 }

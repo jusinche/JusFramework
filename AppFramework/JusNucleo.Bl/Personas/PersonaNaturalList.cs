@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using JusFramework.Bl;
-using DataPortal = Csla.DataPortal;
+using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
 {
@@ -11,10 +11,10 @@ namespace JusNucleo.Bl.Personas
 
         #region Factory Methods
 
-        public static PersonaNaturalCriteria Get(PersonaNaturalCriteria criteria)
-        {
-            return DataPortal.Fetch<PersonaNaturalCriteria>(criteria);
-        }
+        //public static PersonaNaturalList Get(PersonaNaturalCriteria criteria)
+        //{
+        //    return DataPortal.Fetch<PersonaNaturalList>(criteria);
+        //}
 
         private PersonaNaturalList()
         { /* require use of factory methods */ }
@@ -23,13 +23,17 @@ namespace JusNucleo.Bl.Personas
 
         protected override string NombreProcedimiento
         {
-            get { return "PKG_SEG_SEGURIDAD.PRC_OBT_FUNCIONALIDAD_MENU"; }
+            get { return ProcedimientosConstantes.PrcPersonaObt; }
         }
 
         protected void AddParameterCriteria(PersonaNaturalCriteria criteria)
         {
-            //Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, criteria.Usuario);
-            //Db.AddParameterWithValue(Comando, "ec_sistema", DbType.String, criteria.SistemaCodigo);
+            Db.AddParameterWithValue(Comando, "ec_identificacion", DbType.String, criteria.Identificacion);
+            Db.AddParameterWithValue(Comando, "ec_primer_nombre", DbType.String, criteria.PrimerNombre);
+            Db.AddParameterWithValue(Comando, "ec_segundo_nombre", DbType.String, criteria.SegundoNombre);
+            Db.AddParameterWithValue(Comando, "ec_primer_apellido", DbType.String, criteria.PrimerApellido);
+            Db.AddParameterWithValue(Comando, "ec_segundo_apellido", DbType.String, criteria.SegundoApellido);
+
             Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
         }
 
@@ -40,17 +44,19 @@ namespace JusNucleo.Bl.Personas
     {
         #region Business Methods
 
-        public int ModuloId { get; private set; }
-        public string ModuloNombre { get; private set; }
-        public string ModuloMenu { get; private set; }
-        public string FuncionalidadNombre { get; private set; }
+        public int TipoIdentificacionId { get; private set; }
+        public string TipoIdentificacion { get; private set; }
+        public string Identificacion { get; private set; }
+        public string PrimerNombre { get; private set; }
+        public string SegundoNombre { get; private set; }
+        public string PrimerApellido { get; private set; }
+        public string SegundoApellido { get; private set; }
+        public DateTime FechaNacimiento { get; private set; }
+        public int GeneroId { get; private set; }
+        public string Genero { get; private set; }
+        public int EstadoCivilId { get; private set; }
+        public string EstadoCivil { get; private set; }
 
-        public string FuncionalidadCodigo { get; private set; }
-        public string FuncionalidadMenu { get; private set; }
-
-        public string Controlador { get; private set; }
-        public string Accion { get; private set; }
-        public string Parametros { get; private set; }
 
         #endregion
 
@@ -68,16 +74,19 @@ namespace JusNucleo.Bl.Personas
 
         private void Child_Fetch(IDataReader data)
         {
-            Id = Convert.ToInt32(data["fun_id"]);
-            ModuloId = Convert.ToInt32(data["mod_id"]);
-            ModuloNombre = data["mod_nombre"].ToString();
-            ModuloMenu = data["mod_nombre_menu"].ToString();
-            FuncionalidadNombre = data["fun_nombre"].ToString();
-            FuncionalidadCodigo = data["fun_codigo"].ToString();
-            FuncionalidadMenu = data["fun_nombre_menu"].ToString();
-            Controlador = data["fun_controlador"].ToString();
-            Accion = data["fun_accion"].ToString();
-            Parametros = data["fun_parametros"].ToString();
+            Id = Convert.ToInt32(data["per_id"]);
+            TipoIdentificacionId = Convert.ToInt32(data["per_tipo_identificacion"]);
+            TipoIdentificacion = data["tipo_identificacion"].ToString();
+            Identificacion = data["per_identificacion"].ToString();
+            PrimerNombre = data["PER_PRIMER_NOMBRE"].ToString();
+            SegundoNombre = data["PER_SEGUNDO_NOMBRE"].ToString();
+            PrimerApellido = data["PER_PRIMER_APELLIDO"].ToString();
+            SegundoApellido = data["PER_SEGUNDO_APELLIDO"].ToString();
+            GeneroId = Convert.ToInt32(data["PER_GENERO"]);
+            Genero = data["genero"].ToString();
+            FechaNacimiento = Convert.ToDateTime(data["PER_FECHA_NACIMIENTO"]);
+            EstadoCivilId = Convert.ToInt32(data["PER_ESTADO_CIVIL"]);
+            EstadoCivil = data["estado_civil"].ToString();
         }
 
         #endregion

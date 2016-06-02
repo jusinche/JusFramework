@@ -11,7 +11,7 @@ namespace JusUserFront.UI.Domain
     {
         public IEnumerable<MenuNavBar> GetMenuItems(string usuario)
         {
-            var criteria =ModuloFuncionalidadListCriteria.New();
+            var criteria =ModuloFuncionalidadCriteria.New();
             criteria.Usuario = usuario;
             var lista=ModuloFuncionalidadList.Get(criteria);
 

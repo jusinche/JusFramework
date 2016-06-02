@@ -65,6 +65,7 @@
     <Compile Include="Comun\AplicacionVersion.cs" />
     <Compile Include="Comun\CatalogoConstantes.cs" />
     <Compile Include="Comun\CatalogoItemList.cs" />
+    <Compile Include="Comun\ProcedimientosConstantes.cs" />
     <Compile Include="Personas\PersonaNaturalCriteria.cs" />
     <Compile Include="Personas\PersonaNaturalList.cs" />
     <Compile Include="Sistema\Aplicacion\JusApplication.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Personas\PersonaNatural.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sistema\Logeo\Cuenta.cs" />
-    <Compile Include="Sistema\Menu\ModuloFuncionalidadListCriteria.cs" />
+    <Compile Include="Sistema\Menu\ModuloFuncionalidadCriteria.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JusFramework.Bl\JusFramework.Bl.csproj">

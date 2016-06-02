@@ -25,6 +25,11 @@ namespace JusFramework.Dal.JusMongoDB
         public string EditableClass { get; set; }
 
         /// <summary>
+        /// Tipo de Objeto
+        /// </summary>
+        public string ObjectList { get; set; }
+
+        /// <summary>
         /// Fecha de creacion
         /// </summary>
         public DateTime CreateDate { get; set; }

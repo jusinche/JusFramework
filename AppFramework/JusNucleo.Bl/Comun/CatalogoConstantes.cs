@@ -1,7 +1,12 @@
-﻿namespace JusNucleo.Bl.Comun
+﻿using System.Globalization;
+using System.IdentityModel.Metadata;
+
+namespace JusNucleo.Bl.Comun
 {
     public class CatalogoConstantes
     {
+        #region persona
+
         #region Tipo Identificacion
 
         public const string CatIdentificacionTipo = "IDENTIFICACIONTIPO";
@@ -32,14 +37,20 @@
         public const string EstadoCivilUnionlibre = "UNIONLIBRE";
         public const string EstadoCivilViudo = "VIUDO";
 
-        
-
-
-
-
 
 
         #endregion Estado civil
+
+        #region Tipo persona
+
+        public const string CatPersonaTipo = "PERSONATIPO";
+        public const string PersonaNatural = "PERNATURAL";
+        public const string PersonaJuridica = "PERJURIDICA";
+
+
+        #endregion Tipo persona
+
+        #endregion persona
 
     }
 }

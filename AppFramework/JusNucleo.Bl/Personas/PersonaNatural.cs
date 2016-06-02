@@ -1,7 +1,9 @@
 using System;
 using System.Data;
+using System.Linq;
 using Csla;
 using JusFramework.Bl;
+using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
 {
@@ -96,6 +98,11 @@ namespace JusNucleo.Bl.Personas
             set { SetProperty(EstadoCivilProperty, value); }
         }
 
+        public int TipoPersona
+        {
+            get { return CatalogoItemList.Get(CatalogoConstantes.CatPersonaTipo).First(x => x.Codigo == CatalogoConstantes.PersonaNatural).Id; }
+        }
+
         #endregion
 
         #region Business Rules
@@ -147,22 +154,22 @@ namespace JusNucleo.Bl.Personas
 
         protected override string ObtenerSp
         {
-            get { throw new NotImplementedException(); }
+            get { return ProcedimientosConstantes.PrcPersonaObt; }
         }
 
         protected override string ActualizarSp
         {
-            get { throw new NotImplementedException(); }
+            get { return ProcedimientosConstantes.PrcPersonaAct; }
         }
 
         protected override string InsertarSp
         {
-            get { throw new NotImplementedException(); }
+            get { return ProcedimientosConstantes.PrcPersonaIns; }
         }
 
         protected override string BorrarSp
         {
-            get { throw new NotImplementedException(); }
+            get { return ProcedimientosConstantes.PrcPersonaDel; }
         }
 
         protected override void AddObjPost(IDataReader data)
@@ -172,13 +179,25 @@ namespace JusNucleo.Bl.Personas
 
         protected override void AddCommonParameters()
         {
-            throw new NotImplementedException();
+            Db.AddParameterWithValue(Comando, "ec_primer_nombre", DbType.String, PrimerNombre);
+            Db.AddParameterWithValue(Comando, "ec_segundo_nombre", DbType.String, SegundoNombre);
+            Db.AddParameterWithValue(Comando, "ec_primer_apellido", DbType.String, PrimerApellido);
+            Db.AddParameterWithValue(Comando, "ec_segundo_apellido", DbType.String, SegundoApellido);
+            Db.AddParameterWithValue(Comando, "ef_fecha_nac", DbType.DateTime, FechaNacimiento);
+            Db.AddParameterWithValue(Comando, "en_genero", DbType.Int32, Genero);
+            Db.AddParameterWithValue(Comando, "en_estado_civil", DbType.Int16, EstadoCivil);
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_Insert()
+
+
+        protected new void AddInsertParameters()
         {
-            // TODO: insert values
+            Db.AddParameterWithValue(Comando, "en_tipo_identificacion", DbType.Int32, TipoIdentificacion);
+            Db.AddParameterWithValue(Comando, "ec_identificacion", DbType.String, Identificacion);
+            Db.AddParameterWithValue(Comando, "en_tipo_persona", DbType.Int16, TipoPersona);
+            
+            base.AddInsertParameters();
+
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]

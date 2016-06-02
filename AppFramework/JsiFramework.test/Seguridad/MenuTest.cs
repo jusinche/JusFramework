@@ -13,7 +13,7 @@ namespace JusFramework.test.Seguridad
         public void ObtenerMenu()
         {
             RegisterDependency.Init();
-            var criteria = ModuloFuncionalidadListCriteria.New();
+            var criteria = ModuloFuncionalidadCriteria.New();
             criteria.Usuario = "admin";
 
             System.Diagnostics.Trace.WriteLine("Test Cache");

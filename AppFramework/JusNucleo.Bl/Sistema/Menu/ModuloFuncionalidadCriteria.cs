@@ -8,7 +8,7 @@ using JusFramework.Cache;
 namespace JusNucleo.Bl.Sistema.Menu
 {
     [Serializable]
-    public class ModuloFuncionalidadListCriteria : JusCriteriaBase<ModuloFuncionalidadListCriteria>, ICacheable
+    public class ModuloFuncionalidadCriteria : JusCriteriaBase<ModuloFuncionalidadCriteria>, ICacheable
     {
         #region Business Methods
 
@@ -26,7 +26,7 @@ namespace JusNucleo.Bl.Sistema.Menu
         }
 
         #endregion
-        private ModuloFuncionalidadListCriteria()
+        private ModuloFuncionalidadCriteria()
         { /* Require use of factory methods */ }
 
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using Csla;
-using JusFramework.Dal;
-using JusFramework.Excepciones;
 
 namespace JusFramework.Bl
 {
@@ -15,32 +13,29 @@ namespace JusFramework.Bl
 
         }
         
-        public static T New()
-        {
-            return DataPortal.Create<T>();
-        }
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Insert()
         {
-            // TODO: insert values
-            //crear la conexion a la base
-            Db = DatabaseFactory.CreateDatabase();
-            Comando = Db.CreateSPCommand(ObtenerSp);
+            base.DataPortal_Insert();
+        }
 
-            AddInsertParameters();
-            AddCommonParameters();
+        [Transactional(TransactionalTypes.TransactionScope)]
+        protected override void DataPortal_Update()
+        {
+            base.DataPortal_Update();
+        }
 
+        [Transactional(TransactionalTypes.TransactionScope)]
+        protected override void DataPortal_DeleteSelf()
+        {
+            base.DataPortal_DeleteSelf();
+        }
 
-            using (var dr = Db.ExecuteDataReader(Comando))
-                while (dr.Read())
-                {
-                    AddObjPost((dr));
-                    if (dr.NextResult())
-                    {
-                        throw new JusException("Existe mas de un resultado");
-                    }
-                }
+        [Transactional(TransactionalTypes.TransactionScope)]
+        protected new void DataPortal_Delete(int criteria)
+        {
+            base.DataPortal_Delete(criteria);
         }
     }
 }

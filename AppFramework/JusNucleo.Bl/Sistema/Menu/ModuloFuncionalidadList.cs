@@ -17,7 +17,7 @@ namespace JusNucleo.Bl.Sistema.Menu
 
         #region Factory Methods
 
-        public static ModuloFuncionalidadList Get(ModuloFuncionalidadListCriteria criteria)
+        public static ModuloFuncionalidadList Get(ModuloFuncionalidadCriteria criteria)
         {
             return DataPortal.Fetch<ModuloFuncionalidadList>(criteria);
             //return JusDataPortal.Fetch<ModuloFuncionalidadList>(criteria);
@@ -35,7 +35,7 @@ namespace JusNucleo.Bl.Sistema.Menu
             get { return "PKG_SEG_SEGURIDAD.PRC_OBT_FUNCIONALIDAD_MENU"; }
         }
 
-        protected void AddParameterCriteria(ModuloFuncionalidadListCriteria criteria)
+        protected void AddParameterCriteria(ModuloFuncionalidadCriteria criteria)
         {
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, criteria.Usuario);
             Db.AddParameterWithValue(Comando, "ec_sistema", DbType.String, criteria.SistemaCodigo);

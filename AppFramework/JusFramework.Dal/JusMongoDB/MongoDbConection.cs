@@ -36,6 +36,7 @@ namespace JusFramework.Dal.JusMongoDB
             info.Key = key;
             info.Data = SerializeObject(data);
             info.Gruop = group;
+            info.ObjectList = data.GetType().FullName;
             info.Id = Guid.NewGuid();
 
             
@@ -59,14 +60,18 @@ namespace JusFramework.Dal.JusMongoDB
         public bool Contains(string key, string @group = null)
         {
             var cache = _mongoCollection.Find(x => x.Key == key).ToList();
-           
-            if (cache.First().CreateDate.Date.Ticks != DateTime.Now.Date.Ticks)
+
+            if (cache.Count==0)
             {
-                //borrar cache
-                _mongoCollection.DeleteOne(x => x.Key == key);
                 return false;
             }
-
+            var item = cache.First();
+            if (item.CreateDate.Date.Ticks != DateTime.Now.Date.Ticks)
+            {
+                //borrar cache
+                _mongoCollection.DeleteMany(x => x.ObjectList == item.ObjectList);
+                return false;
+            }
             return cache.Count!=0;
         }
 
