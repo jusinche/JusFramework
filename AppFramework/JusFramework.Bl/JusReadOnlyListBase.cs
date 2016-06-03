@@ -60,7 +60,10 @@ namespace JusFramework.Bl
             else
             {
                 //crear la conexion a la base
-                Db = DatabaseFactory.CreateDatabase();
+                if (Db == null)
+                {
+                    Db = DatabaseFactory.CreateDatabase();
+                }
                 Comando = Db.CreateSPCommand(NombreProcedimiento);
 
                 //setear los parametros

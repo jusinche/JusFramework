@@ -29,7 +29,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
     /*Permite actualizar UNA PERSONA NATURAL*/
     PROCEDURE PRC_PERSONA_ACT( ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,
                                                    ef_fecha_nac date, en_genero number, en_estado_civil number, en_id number, ec_usuario varchar2, en_version number, sn_reg_modificados out number) IS
-    BEGIN             
+    BEGIN
+            PKG_AUDITORIA.AUDITAR(en_ID , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_ACTUALIZAR );                                              
             UPDATE TNEG_PERSONA
                         SET    PER_VERSION             = PER_VERSION+1,
                                PER_NOMBRE              = ec_primer_apellido||' '||ec_segundo_apellido||' '||ec_primer_nombre||' '|| ec_segundo_nombre , 

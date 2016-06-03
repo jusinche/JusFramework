@@ -190,7 +190,7 @@ namespace JusNucleo.Bl.Personas
 
 
 
-        protected new void AddInsertParameters()
+        protected override void AddInsertParameters()
         {
             Db.AddParameterWithValue(Comando, "en_tipo_identificacion", DbType.Int32, TipoIdentificacion);
             Db.AddParameterWithValue(Comando, "ec_identificacion", DbType.String, Identificacion);

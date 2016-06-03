@@ -69,7 +69,10 @@ namespace JusFramework.Bl
         protected void DataPortal_Fetch(object criteria)
         {
             //crear la conexion a la base
-            Db = DatabaseFactory.CreateDatabase();
+            if (Db == null)
+            {
+                Db = DatabaseFactory.CreateDatabase();
+            }
             Comando = Db.CreateSPCommand(ObtenerSp);
 
             //setear los parametros
@@ -114,7 +117,7 @@ namespace JusFramework.Bl
         /// <summary>
         /// agrega los parametrso de insert
         /// </summary>
-        protected void AddInsertParameters()
+        protected virtual void AddInsertParameters()
         {
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
             Db.AddParameter(Comando, "sn_id", DbType.Int32, ParameterDirection.Output);
@@ -123,7 +126,7 @@ namespace JusFramework.Bl
         /// <summary>
         /// agrega parametros de update
         /// </summary>
-        protected void AddUpdateParameters()
+        protected virtual void AddUpdateParameters()
         {
             Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, Id);
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
@@ -131,11 +134,38 @@ namespace JusFramework.Bl
             Db.AddParameter(Comando, "sn_reg_modificados", DbType.Int32, ParameterDirection.Output);
         }
 
+        protected override void DataPortal_Insert()
+        {
+            //crear la conexion a la base
+            if (Db == null)
+            {
+                Db = DatabaseFactory.CreateDatabase();
+            }
+            Comando = Db.CreateSPCommand(InsertarSp);
+
+            AddCommonParameters();
+            AddInsertParameters();
+
+            Db.ExecuteNonQuery(Comando);
+
+            int resultado;
+            int.TryParse(Db.GetOutputParameterValue(Comando, "sn_id").ToString(), out resultado);
+            Id = resultado;
+
+            if (resultado == 0)
+            {
+                throw new JusException("No se Inserto ningun dato");
+            }
+        }
 
         protected override void DataPortal_Update()
         {
             //crear la conexion a la base
-            Db = DatabaseFactory.CreateDatabase();
+            if (Db ==null)
+            {
+                Db = DatabaseFactory.CreateDatabase();   
+            }
+            
             Comando = Db.CreateSPCommand(ActualizarSp);
 
             AddCommonParameters();
@@ -150,8 +180,6 @@ namespace JusFramework.Bl
             {
                 throw new JusException("No se modifico ningun dato");
             }
-            
-            
         }
 
         protected override void DataPortal_DeleteSelf()

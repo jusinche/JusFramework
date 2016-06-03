@@ -20,7 +20,10 @@ namespace JusFramework.Bl
 
         protected override void DataPortal_Execute()
         {
-            Db = DatabaseFactory.CreateDatabase();
+            if (Db == null)
+            {
+                Db = DatabaseFactory.CreateDatabase();
+            }
             Comando = Db.CreateSPCommand(NombreProcedimiento);
             AddParameteres();
             Db.ExecuteNonQuery(Comando);
