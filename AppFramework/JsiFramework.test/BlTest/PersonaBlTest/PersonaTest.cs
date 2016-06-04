@@ -47,33 +47,25 @@ namespace JusFramework.test.BlTest.PersonaBlTest
 
             var id=personaList.First(x => x.Identificacion == persona.Identificacion).Id;
 
+
             var persona1 = PersonaNatural.Get(id);
 
+            persona1.EstadoCivil = CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).First(x => x.Codigo == CatalogoConstantes.EstadoCivilUnionlibre).Id;
+            persona1.Save();
+            
+            
+            var persona2 = PersonaNatural.Get(id);
+            persona2.Delete();
+            persona2.Save();
            
 
-            Assert.AreEqual(persona1.Identificacion, persona.Identificacion);
-            Assert.AreNotEqual(persona1.Id, 0);
             Assert.AreNotEqual(personaList.Count, 0);
 
-            persona1.Delete();
-            personaCriteria.Identificacion = persona1.Identificacion;
-
+            
             var personaList1 = PersonaNaturalList.Get(personaCriteria);
             Assert.AreEqual(personaList1.Count, 0);
         }
 
-        [TestMethod]
-        public void PersonaGetList()
-        {
-
-            RegisterDependency.Init();
-            var personaCriteria = PersonaNaturalCriteria.New();
-            var personaList = PersonaNaturalList.Get(personaCriteria);
-
-            var id = personaList.First().Id;
-
-            //var persona1 = PersonaNatural.Get(id);
-            Assert.AreNotEqual(personaList.Count, 0);
-        }
+       
     }
 }

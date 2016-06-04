@@ -115,11 +115,7 @@ namespace JusNucleo.Bl.Personas
             //BusinessRules.AddRule(new Rule(IdProperty));
         }
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //BusinessRules.AddRule(...);
-        }
+       
 
         #endregion
 
@@ -147,10 +143,7 @@ namespace JusNucleo.Bl.Personas
             base.DataPortal_Create();
         }
 
-        private void DataPortal_Fetch(int criteria)
-        {
-            // TODO: load values
-        }
+        
 
         protected override string ObtenerSp
         {
@@ -172,10 +165,8 @@ namespace JusNucleo.Bl.Personas
             get { return ProcedimientosConstantes.PrcPersonaDel; }
         }
 
-        protected override void AddObjPost(IDataReader data)
-        {
-            throw new NotImplementedException();
-        }
+        
+       
 
         protected override void AddCommonParameters()
         {
@@ -200,23 +191,21 @@ namespace JusNucleo.Bl.Personas
 
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_Update()
+
+        protected override void Fetch(IDataReader dr)
         {
-            // TODO: update values
+            TipoIdentificacion = Convert.ToInt32(dr["per_tipo_identificacion"]);
+            Identificacion = dr["per_identificacion"].ToString();
+            PrimerNombre = dr["PER_PRIMER_NOMBRE"].ToString();
+            SegundoNombre = dr["PER_SEGUNDO_NOMBRE"].ToString();
+            PrimerApellido = dr["PER_PRIMER_APELLIDO"].ToString();
+            SegundoApellido = dr["PER_SEGUNDO_APELLIDO"].ToString();
+            Genero = Convert.ToInt32(dr["PER_GENERO"]);
+            FechaNacimiento = Convert.ToDateTime(dr["PER_FECHA_NACIMIENTO"]);
+            EstadoCivil = Convert.ToInt32(dr["PER_ESTADO_CIVIL"]);
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_DeleteSelf()
-        {
-            DataPortal_Delete(this.Id);
-        }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        private void DataPortal_Delete(int criteria)
-        {
-            // TODO: delete values
-        }
+        
 
         #endregion
     }

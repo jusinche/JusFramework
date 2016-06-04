@@ -34,7 +34,7 @@ namespace JusNucleo.Bl.Personas
             Db.AddParameterWithValue(Comando, "ec_primer_apellido", DbType.String, criteria.PrimerApellido);
             Db.AddParameterWithValue(Comando, "ec_segundo_apellido", DbType.String, criteria.SegundoApellido);
 
-            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
+            
         }
 
     }

@@ -74,12 +74,26 @@ namespace JusFramework.Bl
                 {
                     methodInfo.Invoke(this, new [] {criteria});
                 }
+
                 else
                 {
-                    throw new JusException(
+                    if (criteria is int)
+                    {
+                        Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, criteria);
+                    }
+                    else if (criteria is string)
+                    {
+
+                        Db.AddParameterWithValue(Comando, "ec_codigo", DbType.String, criteria);
+                    }
+                    else
+                    {
+                        throw new JusException(
                         String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
                             NombreMetodo, criteria.GetType()));
+                    }
                 }
+                Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
                 using (IDataReader dr = Db.ExecuteDataReader(Comando))
                 {
 

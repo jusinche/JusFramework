@@ -62,6 +62,12 @@ namespace JusFramework.Bl
             get { return _nombreMetodo; }
         }
 
+
+        //private void DataPortal_Fetch(int criteria)
+        //{
+        //    // TODO: load values
+        //}
+
         [NonSerialized]
         protected  DatabaseConection Db;
         [NonSerialized]
@@ -84,16 +90,28 @@ namespace JusFramework.Bl
             }
             else
             {
-                throw new JusException(String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
+                if (criteria is int)
+                {
+                    Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, criteria);
+                }
+                else if (criteria is string)
+                {
+                    
+                    Db.AddParameterWithValue(Comando, "ec_codigo", DbType.String, criteria);
+                }
+                else
+                {
+                    throw new JusException(String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
                     _nombreMetodo, criteria.GetType()));
+                }
             }
-            
+            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
             using (var dr = Db.ExecuteDataReader(Comando))
                 
                 while (dr.Read())
                 {
                     AddCommonData(dr);
-                    AddObjPost((dr));
+                    Fetch(dr);
                     if (dr.NextResult())
                     {
                         throw  new JusException("Existe mas de un resultado");
@@ -107,7 +125,6 @@ namespace JusFramework.Bl
             Version = Convert.ToInt32(dr["n_version"]);
         }
 
-        protected abstract void AddObjPost(IDataReader data);
 
         /// <summary>
         /// Agrega los parametros comunes para una sentencia
@@ -156,7 +173,19 @@ namespace JusFramework.Bl
             {
                 throw new JusException("No se Inserto ningun dato");
             }
+            PostInsert();
         }
+
+
+        protected virtual void PostInsert()
+        {
+        }
+
+        protected virtual void PostUpdate()
+        {
+        }
+
+        protected abstract void Fetch(IDataReader dr);
 
         protected override void DataPortal_Update()
         {
@@ -180,6 +209,7 @@ namespace JusFramework.Bl
             {
                 throw new JusException("No se modifico ningun dato");
             }
+            PostUpdate();
         }
 
         protected override void DataPortal_DeleteSelf()
@@ -189,8 +219,32 @@ namespace JusFramework.Bl
 
         protected void DataPortal_Delete(int criteria)
         {
-            // TODO: delete values
+
+            //crear la conexion a la base
+            if (Db == null)
+            {
+                Db = DatabaseFactory.CreateDatabase();
+            }
+
+            Comando = Db.CreateSPCommand(BorrarSp);
+
+
+            Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, Id);
+            Db.AddParameterWithValue(Comando, "en_version", DbType.Int32, Version);
+            Db.AddParameter(Comando, "sn_reg_modificados", DbType.Int32, ParameterDirection.Output);
+
+            Db.ExecuteNonQuery(Comando);
+
+            int resultado;
+            int.TryParse(Db.GetOutputParameterValue(Comando, "sn_reg_modificados").ToString(), out resultado);
+
+            if (resultado == 0)
+            {
+                throw new JusException("No se modifico ningun dato");
+            }
         }
+
+
 
         #endregion Data Access
     }

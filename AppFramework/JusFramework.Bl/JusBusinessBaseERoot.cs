@@ -25,12 +25,7 @@ namespace JusFramework.Bl
         {
             base.DataPortal_Update();
         }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_DeleteSelf()
-        {
-            base.DataPortal_DeleteSelf();
-        }
+        
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected new void DataPortal_Delete(int criteria)

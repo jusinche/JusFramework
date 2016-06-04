@@ -23,14 +23,9 @@ namespace JusNucleo.Bl.Comun
 
         protected override string NombreProcedimiento
         {
-            get { return "PKG_ADM_CATALOGO.PRC_OBT_ITEM_CATALOGO"; }
+            get { return ProcedimientosConstantes.PrcItemCataloObt; }
         }
-
-        protected void AddParameterCriteria(string criteria)
-        {
-            Db.AddParameterWithValue(Comando, "ec_catalogo", DbType.String, criteria);
-            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
-        }
+       
     }
 
     [Serializable]

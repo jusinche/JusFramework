@@ -1,16 +1,11 @@
 ﻿using System;
-using System.CodeDom;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using Csla.Server;
 using JusFramework.Bl;
-using JusFramework.Cache;
 using DataPortal = Csla.DataPortal;
 
 namespace JusNucleo.Bl.Sistema.Menu
 {
     [Serializable]
-    //[ClassRoot(typeof(ModuloFuncionalidadListCriteria), typeof(ModuloFuncionalidadListCriteria))]
     public class ModuloFuncionalidadList :
       JusReadOnlyListBase<ModuloFuncionalidadList, ModuloFuncionalidadInfo>
     {
@@ -20,7 +15,6 @@ namespace JusNucleo.Bl.Sistema.Menu
         public static ModuloFuncionalidadList Get(ModuloFuncionalidadCriteria criteria)
         {
             return DataPortal.Fetch<ModuloFuncionalidadList>(criteria);
-            //return JusDataPortal.Fetch<ModuloFuncionalidadList>(criteria);
 
             
         }
@@ -39,7 +33,6 @@ namespace JusNucleo.Bl.Sistema.Menu
         {
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, criteria.Usuario);
             Db.AddParameterWithValue(Comando, "ec_sistema", DbType.String, criteria.SistemaCodigo);
-            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
         }
 
     }
@@ -75,7 +68,7 @@ namespace JusNucleo.Bl.Sistema.Menu
 
         #region Data Access
 
-        private void Child_Fetch(IDataReader data)
+        protected void Child_Fetch(IDataReader data)
         {
             Id = Convert.ToInt32(data["fun_id"]);
             ModuloId = Convert.ToInt32(data["mod_id"]);

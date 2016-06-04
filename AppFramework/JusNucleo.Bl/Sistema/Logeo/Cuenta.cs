@@ -3,6 +3,7 @@ using System.Data;
 using Csla;
 using JusFramework.Bl;
 using JusFramework.Enumeradores;
+using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Sistema.Logeo
 {
@@ -107,7 +108,6 @@ namespace JusNucleo.Bl.Sistema.Logeo
         protected void AddParameterCriteria(string criteria)
         {
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, criteria);
-            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
         }
 
 
@@ -119,19 +119,15 @@ namespace JusNucleo.Bl.Sistema.Logeo
             base.DataPortal_Create();
         }
 
-        private void DataPortal_Fetch(int criteria)
-        {
-            // TODO: load values
-        }
 
         protected override string ObtenerSp
         {
-            get { return "PKG_SEG_CUENTA.PRC_OBT_CUENTA"; }
+            get { return ProcedimientosConstantes.PrcCuentaObt; }
         }
 
         protected override string ActualizarSp
         {
-            get { return "PKG_SEG_CUENTA.PRC_ACT_CUENTA"; }
+            get { return ProcedimientosConstantes.PrcCuentaAct; }
         }
 
         protected override string InsertarSp
@@ -145,20 +141,20 @@ namespace JusNucleo.Bl.Sistema.Logeo
         }
 
 
-        protected override void AddObjPost(IDataReader data)
+        protected override void Fetch(IDataReader dr)
         {
             
-            var perId=data["PER_ID"];
+            var perId=dr["PER_ID"];
             if (perId != null && perId!=DBNull.Value)
             {
                 PersonaId = Convert.ToInt32(perId);
             }
-            UltimoAcceso=Convert.ToDateTime(data["CUE_ULTIMO_ACCESO"]);
-            Login=data["CUE_LOGIN"].ToString();
-            Accesos = Convert.ToInt32(data["CUE_ACCESOS"]);
-            Estado=Convert.ToInt32(data["CUE_ESTADO"]);
-            EnLinea = (data["CUE_EN_LINEA"].ToString()) == Boleano.S.ToString();
-            CambioClave=Convert.ToDateTime(data["CUE_CAMBIO_CLAVE"]);
+            UltimoAcceso=Convert.ToDateTime(dr["CUE_ULTIMO_ACCESO"]);
+            Login=dr["CUE_LOGIN"].ToString();
+            Accesos = Convert.ToInt32(dr["CUE_ACCESOS"]);
+            Estado=Convert.ToInt32(dr["CUE_ESTADO"]);
+            EnLinea = (dr["CUE_EN_LINEA"].ToString()) == Boleano.S.ToString();
+            CambioClave=Convert.ToDateTime(dr["CUE_CAMBIO_CLAVE"]);
         }
 
         protected override void AddCommonParameters()
@@ -171,6 +167,8 @@ namespace JusNucleo.Bl.Sistema.Logeo
             Db.AddParameterWithValue(Comando, "ec_login", DbType.String, Login);
 
         }
+
+        
 
         #endregion
        

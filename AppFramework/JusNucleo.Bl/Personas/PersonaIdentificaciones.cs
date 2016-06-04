@@ -69,12 +69,13 @@ namespace JusNucleo.Bl.Personas
             get { throw new NotImplementedException(); }
         }
 
-        protected override void AddObjPost(IDataReader data)
+
+        protected override void AddCommonParameters()
         {
             throw new NotImplementedException();
         }
 
-        protected override void AddCommonParameters()
+        protected override void Fetch(IDataReader dr)
         {
             throw new NotImplementedException();
         }

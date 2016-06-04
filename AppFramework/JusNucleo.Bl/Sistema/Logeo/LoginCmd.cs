@@ -4,6 +4,7 @@ using System.Security.Principal;
 using Csla;
 using JusFramework.Bl;
 using JusFramework.Encriptacion;
+using JusNucleo.Bl.Comun;
 using JusNucleo.Bl.Sistema.Aplicacion;
 using Microsoft.Practices.ServiceLocation;
 
@@ -59,7 +60,7 @@ namespace JusNucleo.Bl.Sistema.Logeo
 
         protected override string NombreProcedimiento
         {
-            get { return "PKG_SEG_CUENTA.PRC_OBT_CANT_CUENTA"; }
+            get { return ProcedimientosConstantes.PrcCuentaObtCant; }
         }
 
         protected override void AddParameteres()
