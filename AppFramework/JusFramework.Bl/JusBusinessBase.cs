@@ -231,6 +231,7 @@ namespace JusFramework.Bl
 
             Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, Id);
             Db.AddParameterWithValue(Comando, "en_version", DbType.Int32, Version);
+            Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
             Db.AddParameter(Comando, "sn_reg_modificados", DbType.Int32, ParameterDirection.Output);
 
             Db.ExecuteNonQuery(Comando);

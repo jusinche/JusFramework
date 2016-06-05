@@ -32,8 +32,8 @@ PROCEDURE AUDITAR(en_id number, ec_table varchar2, ec_usuario varchar2, ec_opera
     -- dbms_output.put_line(lista_datos(lista_datos.last));
     lc_datos:=lista_datos(lista_datos.last);
     select ope_id into ln_ope from tseg_operacion where ope_codigo=ec_operacion;
-    INSERT INTO TAUD_AUDITORIA (OPE_ID, AUD_USUARIO, AUD_TABLA,    AUD_FECHA, AUD_DATOS,AUD_ID) 
-        VALUES ( ln_ope,  ec_usuario, ec_table,  PKG_ADM_COMUN.fnc_obt_fecha_actual, lc_datos, SAUD_AUDITORIA.nextval);  
+    INSERT INTO TAUD_AUDITORIA (AUD_ID_REGISTRO,OPE_ID, AUD_USUARIO, AUD_TABLA,    AUD_FECHA, AUD_DATOS,AUD_ID) 
+        VALUES (en_id, ln_ope,  ec_usuario, ec_table,  PKG_ADM_COMUN.fnc_obt_fecha_actual, lc_datos, SAUD_AUDITORIA.nextval);  
     EXCEPTION
     when others   then
         raise_application_error(- 20001, 'en_id:' ||en_id|| ' ec_table :' ||ec_table|| '  ec_usuario:' ||ec_usuario|| ' ec_operacion:' ||ec_operacion);

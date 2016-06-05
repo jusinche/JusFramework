@@ -6,10 +6,11 @@
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{2751E78C-BFBA-4C46-8268-533A66D4EDC8}" Loaded="No" Name="SeguridadEsquema" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="SeguridadEsquema.pdm"/>
 		<Model ID="{A20B8C7C-F140-40D2-96B8-3F7C2515A918}" Loaded="No" Name="Administracion" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Administracion.pdm"/>
-		<Model ID="{E150CF1F-5E4F-4F0F-8A96-EE938CC68BDE}" Name="Persona" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Persona.pdm"/>
+		<Model ID="{E150CF1F-5E4F-4F0F-8A96-EE938CC68BDE}" Loaded="No" Name="Persona" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Persona.pdm"/>
 		<Model ID="{A20B8C7C-F140-40D2-96B8-3F7C2515A918}" Loaded="No" Name="Administracion" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Administracion.pdm"/>
 		<Model Expanded="Yes" ID="{A20B8C7C-F140-40D2-96B8-3F7C2515A918}" Loaded="No" Name="Administracion" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Administracion.pdm"/>
 		<Model Expanded="Yes" ID="{2751E78C-BFBA-4C46-8268-533A66D4EDC8}" Loaded="No" Name="SeguridadEsquema" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="SeguridadEsquema.pdm"/>
+		<Model Expanded="Yes" ID="{A20B8C7C-F140-40D2-96B8-3F7C2515A918}" Name="Administracion" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Administracion.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>

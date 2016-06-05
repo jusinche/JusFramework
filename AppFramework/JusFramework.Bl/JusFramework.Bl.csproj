@@ -61,6 +61,9 @@
     <Compile Include="Rules\AuthorizationRules\AuthorizationCrear.cs" />
     <Compile Include="Rules\AuthorizationRules\AuthorizationEditar.cs" />
     <Compile Include="Rules\AuthorizationRules\AuthorizationObtener.cs" />
+    <Compile Include="ValidacionDatos\ConstantesValidaciones.cs" />
+    <Compile Include="ValidacionDatos\EmailAttribute.cs" />
+    <Compile Include="ValidacionDatos\PersonaNombreAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JusFramework.Dal\JusFramework.Dal.csproj">

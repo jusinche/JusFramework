@@ -20,7 +20,7 @@ namespace JusFramework.test.BlTest.PersonaBlTest
             persona.Identificacion = "1103776313";
             persona.PrimerApellido = "Sinche";
             persona.SegundoApellido = "Salinas";
-            persona.PrimerNombre = "Junior";
+          persona.PrimerNombre = "Junior";
             persona.SegundoNombre = "Ulises";
 
             var t1 = DateTime.Now.Ticks;

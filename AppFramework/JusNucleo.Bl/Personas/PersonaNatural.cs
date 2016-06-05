@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using Csla;
 using JusFramework.Bl;
+using JusFramework.Bl.ValidacionDatos;
 using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
@@ -49,6 +51,8 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> PrimerNombreProperty = RegisterProperty<string>(p => p.PrimerNombre);
+        [Required]
+        [PersonaNombre]
         public string PrimerNombre
         {
             get { return GetProperty(PrimerNombreProperty); }
@@ -56,6 +60,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> SegundoNombreProperty = RegisterProperty<string>(p => p.SegundoNombre);
+         [PersonaNombre]
         public string SegundoNombre
         {
             get { return GetProperty(SegundoNombreProperty); }
@@ -63,6 +68,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> PrimerApellidoProperty = RegisterProperty<string>(p => p.PrimerApellido);
+         [PersonaNombre]
         public string PrimerApellido
         {
             get { return GetProperty(PrimerApellidoProperty); }
@@ -70,6 +76,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> SegundoApellidoProperty = RegisterProperty<string>(p => p.SegundoApellido);
+         [PersonaNombre]
         public string SegundoApellido
         {
             get { return GetProperty(SegundoApellidoProperty); }

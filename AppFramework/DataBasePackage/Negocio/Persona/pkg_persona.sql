@@ -5,8 +5,8 @@
    /*Permite actualizar UNA PERSONA NATURAL*/
     PROCEDURE PRC_PERSONA_ACT( ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,
                                                    ef_fecha_nac date, en_genero number, en_estado_civil number, en_id number, ec_usuario varchar2, en_version number, sn_reg_modificados out number);
-   --ELIMINA una persona por su id
-    PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, sn_reg_modificados out number);
+   --ELIMINA una persona por su id    
+    PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, ec_usuario varchar2, sn_reg_modificados out number);
     --Obtiene una persona por su id
     PROCEDURE PRC_PERSONA_OBT(en_id number,sq_resultado out sys_refcursor);
     --Obtiene un listado de personas segun el criterio
@@ -51,8 +51,9 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
          sn_reg_modificados := SQL%ROWCOUNT;  
     END PRC_PERSONA_ACT;
     --ELIMINA una persona por su id
-    PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, sn_reg_modificados out number)IS
+    PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, ec_usuario varchar2, sn_reg_modificados out number)IS
     BEGIN
+        PKG_AUDITORIA.AUDITAR(en_ID , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_BORRAR );    
         DELETE TNEG_PERSONA_NATURAL WHERE per_id=en_id and  PER_VERSION =en_version;
          DELETE TNEG_PERSONA WHERE per_id=en_id and  PER_VERSION =en_version;
          sn_reg_modificados := SQL%ROWCOUNT;  
