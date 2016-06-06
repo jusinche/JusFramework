@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using Csla;
 using JusFramework.Cache;
@@ -12,17 +13,23 @@ using MethodInfo = System.Reflection.MethodInfo;
 namespace JusFramework.Bl
 {
     [Serializable]
-    [ClassRoot]
     public abstract class JusReadOnlyListBase<T, TCr> : ReadOnlyListBase<T, TCr> where T : JusReadOnlyListBase<T, TCr>
         where TCr : JusReadOnlyBase<TCr>
     {
         protected abstract string NombreProcedimiento { get; }
 
+        public TCr GetItem(int id)
+        {
+            return this.First(x => x.Id == id);
+        }
+
         #region Data Access
 
         private static readonly string NombreMetodo = "AddParameterCriteria";
 
-        protected void DataPortal_Fetch(object criteria)
+        protected abstract Type[] RootClass { get; }
+
+        protected new void DataPortal_Fetch(object criteria)
         {
             RaiseListChangedEvents = false;
             IsReadOnly = false;
@@ -104,7 +111,8 @@ namespace JusFramework.Bl
                 }
                 if (Items.Count > 1)
                 {
-                    cache.AddItem(key, Items);
+                    var grupo = RootClass.Aggregate(string.Empty, (current, type) => current + type + ',');
+                    cache.AddItem(key, Items, grupo.Trim(','));
                 }
             }
         }

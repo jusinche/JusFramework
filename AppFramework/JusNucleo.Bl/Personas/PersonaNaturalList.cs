@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using JusFramework.Bl;
+using JusFramework.Cache;
 using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
@@ -26,6 +27,11 @@ namespace JusNucleo.Bl.Personas
             get { return ProcedimientosConstantes.PrcPersonaObt; }
         }
 
+        protected override Type[] RootClass
+        {
+            get { return new []{typeof(PersonaNatural)};}
+        }
+
         protected void AddParameterCriteria(PersonaNaturalCriteria criteria)
         {
             Db.AddParameterWithValue(Comando, "ec_identificacion", DbType.String, criteria.Identificacion);
@@ -33,8 +39,6 @@ namespace JusNucleo.Bl.Personas
             Db.AddParameterWithValue(Comando, "ec_segundo_nombre", DbType.String, criteria.SegundoNombre);
             Db.AddParameterWithValue(Comando, "ec_primer_apellido", DbType.String, criteria.PrimerApellido);
             Db.AddParameterWithValue(Comando, "ec_segundo_apellido", DbType.String, criteria.SegundoApellido);
-
-            
         }
 
     }
@@ -72,7 +76,7 @@ namespace JusNucleo.Bl.Personas
 
         #region Data Access
 
-        private void Child_Fetch(IDataReader data)
+        protected void Child_Fetch(IDataReader data)
         {
             Id = Convert.ToInt32(data["per_id"]);
             TipoIdentificacionId = Convert.ToInt32(data["per_tipo_identificacion"]);

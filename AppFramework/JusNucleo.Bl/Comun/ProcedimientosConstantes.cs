@@ -18,7 +18,7 @@
         public const string PrcCuentaObt = PkgCuenta + "PRC_CUENTA_OBT";
         public const string PrcCuentaDel = PkgCuenta + "PRC_CUENTA_DEL";
         public const string PrcCuentaObtCant = PkgCuenta + "PRC_CUENTA_OBT_CANT";
-
+        
         
         //Fin cuenta de usuario
 
@@ -28,6 +28,11 @@
         public const string PrcItemCataloObt = PkgCatalogo+"PRC_ITEM_CATALOGO_OBT";
 
         #endregion Catalogo
+
+        #region Seguidad
+        private const string PKG_SEG_SEGURIDAD="PKG_SEG_SEGURIDAD.";
+        public const string PRC_FUNCIONALIDAD_MENU_OBT=PKG_SEG_SEGURIDAD+"PRC_FUNCIONALIDAD_MENU_OBT";
+        #endregion
 
     }
 }

@@ -63,10 +63,6 @@ namespace JusFramework.Bl
         }
 
 
-        //private void DataPortal_Fetch(int criteria)
-        //{
-        //    // TODO: load values
-        //}
 
         [NonSerialized]
         protected  DatabaseConection Db;
@@ -174,6 +170,8 @@ namespace JusFramework.Bl
                 throw new JusException("No se Inserto ningun dato");
             }
             PostInsert();
+
+            DataPortal.UpdateChild(this);
         }
 
 
@@ -210,6 +208,8 @@ namespace JusFramework.Bl
                 throw new JusException("No se modifico ningun dato");
             }
             PostUpdate();
+
+             DataPortal.UpdateChild(this);
         }
 
         protected override void DataPortal_DeleteSelf()

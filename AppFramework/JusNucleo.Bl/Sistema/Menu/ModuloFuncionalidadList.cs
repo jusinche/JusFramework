@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using JusFramework.Bl;
+using JusNucleo.Bl.Comun;
 using DataPortal = Csla.DataPortal;
 
 namespace JusNucleo.Bl.Sistema.Menu
@@ -26,7 +27,12 @@ namespace JusNucleo.Bl.Sistema.Menu
 
         protected override string NombreProcedimiento
         {
-            get { return "PKG_SEG_SEGURIDAD.PRC_OBT_FUNCIONALIDAD_MENU"; }
+            get { return ProcedimientosConstantes.PRC_FUNCIONALIDAD_MENU_OBT; }
+        }
+
+        protected override Type[] RootClass
+        {
+            get { return new Type[]{};}
         }
 
         protected void AddParameterCriteria(ModuloFuncionalidadCriteria criteria)

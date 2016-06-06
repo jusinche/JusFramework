@@ -24,12 +24,12 @@ namespace JusFramework.test.BlTest.PersonaBlTest
             persona.SegundoNombre = "Ulises";
 
             var t1 = DateTime.Now.Ticks;
-            persona.TipoIdentificacion = CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo).First(x => x.Codigo == CatalogoConstantes.IdentificacionCedula).Id;
+            persona.TipoIdentificacion = CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo).GetItem(CatalogoConstantes.IdentificacionCedula).Id;
 
             var t2 = DateTime.Now.Ticks;
-            persona.Genero =CatalogoItemList.Get(CatalogoConstantes.CatGenero).First(x => x.Codigo == CatalogoConstantes.GeneroMasculino).Id;
+            persona.Genero = CatalogoItemList.Get(CatalogoConstantes.CatGenero).GetItem(CatalogoConstantes.GeneroMasculino).Id;
             var t3 = DateTime.Now.Ticks;
-            persona.EstadoCivil = CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).First(x => x.Codigo == CatalogoConstantes.EstadoCivilUnionlibre).Id;
+            persona.EstadoCivil = CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).GetItem( CatalogoConstantes.EstadoCivilUnionlibre).Id;
 
             var t4 = DateTime.Now.Ticks;
 
@@ -50,7 +50,7 @@ namespace JusFramework.test.BlTest.PersonaBlTest
 
             var persona1 = PersonaNatural.Get(id);
 
-            persona1.EstadoCivil = CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).First(x => x.Codigo == CatalogoConstantes.EstadoCivilUnionlibre).Id;
+            persona1.EstadoCivil = CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).GetItem(CatalogoConstantes.EstadoCivilUnionlibre).Id;
             persona1.Save();
             
             

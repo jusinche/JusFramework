@@ -13,12 +13,7 @@ namespace JusFramework.Dal.JusMongoDB
         /// Clave de la cache
         /// </summary>
         public string Key { get; set; }
-
-        /// <summary>
-        /// Grupo al que pertenece
-        /// </summary>
-        public string Gruop { get; set; }
-
+        
         /// <summary>
         /// Clase editable
         /// </summary>

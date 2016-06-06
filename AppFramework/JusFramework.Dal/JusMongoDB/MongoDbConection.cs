@@ -14,7 +14,6 @@ namespace JusFramework.Dal.JusMongoDB
     
         private  string DatabaseName{ get; set; }
 
-        private IMongoDatabase _mongoServer;
         private IMongoCollection<CacheDataInfo> _mongoCollection;
         public MongoDbConection(string connectionString, string databaseName)
         {
@@ -22,21 +21,22 @@ namespace JusFramework.Dal.JusMongoDB
             DatabaseName = databaseName;
             var cliente = new MongoClient(ConnectionString);
             //// Get a reference to a server object from the Mongo client object
-            _mongoServer = cliente.GetDatabase(DatabaseName);
-            _mongoCollection = _mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
+            var mongoServer = cliente.GetDatabase(DatabaseName);
+            _mongoCollection = mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
         }
 
 
         public void AddItem(string key, object data, string group = null)
         {
            
-
             var info= new CacheDataInfo();
             info.CreateDate=DateTime.Now;
             info.Key = key;
             info.Data = SerializeObject(data);
-            info.Gruop = group;
+            info.EditableClass = group;
             info.ObjectList = data.GetType().FullName;
+            
+
             info.Id = Guid.NewGuid();
 
             
@@ -116,7 +116,7 @@ namespace JusFramework.Dal.JusMongoDB
             {
                 strData = strData + (char)b;
             }
-            return ToHexa( strData);
+            return ToHexa(strData);
         }
 
         // Convert a byte array to an Object

@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\Cache.cs" />
-    <Compile Include="Cache\ClassRootAttribute.cs" />
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Cache\ICacheable.cs" />
     <Compile Include="ConstantesFramework.cs" />

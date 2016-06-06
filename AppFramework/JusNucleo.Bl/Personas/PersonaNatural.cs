@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Linq;
 using Csla;
 using JusFramework.Bl;
 using JusFramework.Bl.ValidacionDatos;
@@ -107,7 +106,7 @@ namespace JusNucleo.Bl.Personas
 
         public int TipoPersona
         {
-            get { return CatalogoItemList.Get(CatalogoConstantes.CatPersonaTipo).First(x => x.Codigo == CatalogoConstantes.PersonaNatural).Id; }
+            get { return CatalogoItemList.Get(CatalogoConstantes.CatPersonaTipo).GetItem(CatalogoConstantes.PersonaNatural).Id; }
         }
 
         #endregion

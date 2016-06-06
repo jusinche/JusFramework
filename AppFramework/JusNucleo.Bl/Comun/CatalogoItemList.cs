@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Linq;
 using JusFramework.Bl;
 
 namespace JusNucleo.Bl.Comun
@@ -11,13 +12,14 @@ namespace JusNucleo.Bl.Comun
 
         #region Factory Methods
 
-        //public static CatalogoItemList Get(string criteria)
-        //{
-        //    return DataPortal.Fetch<CatalogoItemList>(criteria);
-        //}
-
+        
         private CatalogoItemList()
         { /* require use of factory methods */ }
+
+        public CatalogoItemInfo GetItem(string codigoItem)
+        {
+            return this.First(x => x.Codigo == codigoItem);
+        }
 
         #endregion
 
@@ -25,7 +27,11 @@ namespace JusNucleo.Bl.Comun
         {
             get { return ProcedimientosConstantes.PrcItemCataloObt; }
         }
-       
+
+        protected override Type[] RootClass
+        {
+            get { return new Type[0];}
+        }
     }
 
     [Serializable]
@@ -52,7 +58,7 @@ namespace JusNucleo.Bl.Comun
 
         #region Data Access
 
-        private void Child_Fetch(IDataReader data)
+        protected void Child_Fetch(IDataReader data)
         {
             Id = Convert.ToInt32(data["ite_id"]);
             Nombre = data["ite_nombre"].ToString();
