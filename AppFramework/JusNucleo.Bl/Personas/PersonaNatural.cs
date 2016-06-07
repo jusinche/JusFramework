@@ -109,6 +109,26 @@ namespace JusNucleo.Bl.Personas
             get { return CatalogoItemList.Get(CatalogoConstantes.CatPersonaTipo).GetItem(CatalogoConstantes.PersonaNatural).Id; }
         }
 
+
+
+        private static PropertyInfo<PersonaCorreos> RequisitosProperty = RegisterProperty<PersonaCorreos>(o => o.Correos);
+        /// <summary>
+        /// Lista de los Elementos de Asignacion para la beca
+        /// </summary>
+        public PersonaCorreos Correos
+        {
+            get
+            {
+                if (!(FieldManager.FieldExists(RequisitosProperty)))
+                    if (IsNew)
+                        LoadProperty(RequisitosProperty,
+                                     PersonaCorreos.New());
+                    else
+                        LoadProperty(RequisitosProperty,
+                                     PersonaCorreos.Get(Id));
+                return GetProperty(RequisitosProperty);
+            }
+        }
         #endregion
 
         #region Business Rules
@@ -119,6 +139,7 @@ namespace JusNucleo.Bl.Personas
             base.AddBusinessRules();
 
             //BusinessRules.AddRule(new Rule(IdProperty));
+           Console.Out.WriteLine("hola mundo");
         }
 
        

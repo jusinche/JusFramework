@@ -66,6 +66,7 @@
     <Compile Include="Comun\CatalogoConstantes.cs" />
     <Compile Include="Comun\CatalogoItemList.cs" />
     <Compile Include="Comun\ProcedimientosConstantes.cs" />
+    <Compile Include="Personas\PersonaCorreos.cs" />
     <Compile Include="Personas\PersonaNaturalCriteria.cs" />
     <Compile Include="Personas\PersonaNaturalList.cs" />
     <Compile Include="Sistema\Aplicacion\JusApplication.cs" />

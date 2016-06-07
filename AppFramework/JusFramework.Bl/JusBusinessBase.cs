@@ -49,6 +49,11 @@ namespace JusFramework.Bl
             return DataPortal.Fetch<T>(id);
         }
 
+        public static T Get(object obj)
+        {
+            return DataPortal.Fetch<T>(obj);
+        }
+
         #region Data Access
 
         private static readonly string _nombreMetodo = "AddParameterCriteria";
@@ -171,7 +176,7 @@ namespace JusFramework.Bl
             }
             PostInsert();
 
-            DataPortal.UpdateChild(this);
+            FieldManager.UpdateChildren();
         }
 
 
@@ -209,7 +214,7 @@ namespace JusFramework.Bl
             }
             PostUpdate();
 
-             DataPortal.UpdateChild(this);
+            FieldManager.UpdateChildren();
         }
 
         protected override void DataPortal_DeleteSelf()

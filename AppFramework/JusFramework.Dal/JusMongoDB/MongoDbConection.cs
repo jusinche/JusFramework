@@ -77,7 +77,12 @@ namespace JusFramework.Dal.JusMongoDB
 
         public void Clear(string @group = null)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(@group))
+            {
+                _mongoCollection.DeleteMany(x=>x.EditableClass.Length>=0);
+                return;
+            }
+            _mongoCollection.DeleteMany(x => x.EditableClass.Contains(@group));
         }
 
         public  object GetData(string key, string @group = null)
@@ -97,9 +102,6 @@ namespace JusFramework.Dal.JusMongoDB
         }
 
          
-
-        
-
 
         private string SerializeObject(Object obj)
         {

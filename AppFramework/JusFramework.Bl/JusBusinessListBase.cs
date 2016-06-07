@@ -31,14 +31,12 @@ namespace JusFramework.Bl
             return DataPortal.Fetch<T>(id);
         }
 
-        private JusBusinessListBase()
-        { /* Require use of factory methods */ }
 
         #endregion
 
         #region Data Access
 
-        private void DataPortal_Fetch(int criteria)
+        protected void DataPortal_Fetch(int criteria)
         {
             RaiseListChangedEvents = false;
             // TODO: load values into memory
@@ -48,7 +46,6 @@ namespace JusFramework.Bl
             RaiseListChangedEvents = true;
         }
 
-        [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
             // TODO: open database, update values

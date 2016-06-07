@@ -11,7 +11,6 @@
         //fin persona
 
         //Cuenta de usuario
-
         private const string PkgCuenta = "PKG_NEG_PERSONA.";
         public const string PrcCuentaIns = PkgCuenta + "PRC_CUENTA_INS";
         public const string PrcCuentaAct = PkgCuenta + "PRC_CUENTA_ACT";
@@ -21,6 +20,13 @@
         
         
         //Fin cuenta de usuario
+
+        //Cuenta de usuario
+        private const string PkgCorreo = "PKG_CORREO.";
+        public const string PrcCorreoIns = PkgCorreo + "PRC_CORREO_INS";
+        public const string PrcCorreoAct = PkgCorreo + "PRC_CORREO_ACT";
+        public const string PrcCorreoObt = PkgCorreo + "PRC_CORREO_OBT";
+        public const string PrcCorreoDel = PkgCorreo + "PRC_CORREO_DEL";
 
         #region Catalogo 
 
