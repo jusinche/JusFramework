@@ -2,6 +2,7 @@
 using System.Data;
 using System.Reflection;
 using Csla;
+using Csla.Core;
 using JusFramework.Dal;
 using JusFramework.Excepciones;
 using MethodInfo = System.Reflection.MethodInfo;
@@ -137,8 +138,25 @@ namespace JusFramework.Bl
         /// </summary>
         protected virtual void AddInsertParameters()
         {
+            if (Parent!=null)
+            {
+                Db.AddParameterWithValue(Comando, "en_padre", DbType.Int32, GetParentId(Parent));
+            }
+           
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
             Db.AddParameter(Comando, "sn_id", DbType.Int32, ParameterDirection.Output);
+        }
+
+       
+
+        private int GetParentId(IParent parent)
+        {
+            if (parent is BusinessBase)
+            {
+                Object retval = parent.GetType().GetProperty("Id").GetValue(parent);
+                return (int)retval;
+            }
+            return GetParentId(parent.Parent);
         }
 
         /// <summary>
@@ -161,6 +179,7 @@ namespace JusFramework.Bl
             }
             Comando = Db.CreateSPCommand(InsertarSp);
 
+            
             AddCommonParameters();
             AddInsertParameters();
 

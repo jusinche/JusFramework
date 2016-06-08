@@ -20,11 +20,11 @@ namespace JusFramework.test.BlTest.PersonaBlTest
             persona.Identificacion = "1103776313";
             persona.PrimerApellido = "Sinche";
             persona.SegundoApellido = "Salinas";
-          persona.PrimerNombre = "Junior";
+            persona.PrimerNombre = "Junior";
             persona.SegundoNombre = "Ulises";
 
             var correo = persona.Correos.AddNew();
-             correo.Correo = "jusinche@utpl.edu.ec";
+             correo.Correo = "juniorsin@gmail.com";
 
             
               persona.Correos.Add  (correo);
@@ -65,7 +65,6 @@ namespace JusFramework.test.BlTest.PersonaBlTest
            
 
             Assert.AreNotEqual(personaList.Count, 0);
-
             
             var personaList1 = PersonaNaturalList.Get(personaCriteria);
             Assert.AreNotEqual(personaList1.Count, personaList.Count);
@@ -74,16 +73,19 @@ namespace JusFramework.test.BlTest.PersonaBlTest
 
 
         [TestMethod]
-        public void GetPersona()
+        public void GetPersonaCorreo()
         {
             RegisterDependency.Init();
 
             var t1 = DateTime.Now.Ticks;
             var personaCriteria = PersonaNaturalCriteria.New();
+            personaCriteria.Identificacion = "1103776313";
             var personaList = PersonaNaturalList.Get(personaCriteria);
+            var persona = PersonaNatural.Get(personaList.First().Id);
+            
             var t2 = DateTime.Now.Ticks;
             System.Diagnostics.Trace.WriteLine("T1:" + ((t2 - t1)/1000));
-            Assert.AreNotEqual(personaList.Count, 0);
+            Assert.AreNotEqual(persona.Correos.Count, 0);
         }
 
         /* [TestMethod]

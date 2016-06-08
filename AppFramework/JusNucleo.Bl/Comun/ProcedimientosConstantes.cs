@@ -22,7 +22,7 @@
         //Fin cuenta de usuario
 
         //Cuenta de usuario
-        private const string PkgCorreo = "PKG_CORREO.";
+        private const string PkgCorreo = "PKG_NEG_CORREO.";
         public const string PrcCorreoIns = PkgCorreo + "PRC_CORREO_INS";
         public const string PrcCorreoAct = PkgCorreo + "PRC_CORREO_ACT";
         public const string PrcCorreoObt = PkgCorreo + "PRC_CORREO_OBT";

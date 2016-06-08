@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
+using System.Data;
 using Csla;
+using JusFramework.Dal;
 
 namespace JusFramework.Bl
 {
@@ -11,11 +12,6 @@ namespace JusFramework.Bl
     {
         #region Authorization Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(EditableRootList1), "Role");
-        }
 
         #endregion
 
@@ -36,13 +32,31 @@ namespace JusFramework.Bl
 
         #region Data Access
 
-        protected void DataPortal_Fetch(int criteria)
+        protected DatabaseConection Db;
+        protected IDbCommand Comando;
+
+        protected abstract string NombreProcedimiento { get; }
+
+        protected void DataPortal_Fetch(int id)
         {
             RaiseListChangedEvents = false;
-            // TODO: load values into memory
-            object childData = null;
-            foreach (var item in (List<object>)childData)
-                this.Add(JusBusinessBaseEChild<TS>.Get(childData));
+            
+            //crear la conexion a la base
+            if (Db == null)
+            {
+                Db = DatabaseFactory.CreateDatabase();
+            }
+            Comando = Db.CreateSPCommand(NombreProcedimiento);
+            Db.AddParameterWithValue(Comando, "en_padre", DbType.Int32, id);
+            Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
+
+            using (IDataReader dr = Db.ExecuteDataReader(Comando))
+            {
+                while (dr.Read())
+                {
+                    Add(JusBusinessBaseEChild<TS>.Get(dr));
+                }
+            }
             RaiseListChangedEvents = true;
         }
 

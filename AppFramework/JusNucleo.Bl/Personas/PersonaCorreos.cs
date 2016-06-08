@@ -39,6 +39,10 @@ namespace JusNucleo.Bl.Personas
         }
 
         #endregion
+
+        protected override string NombreProcedimiento {
+            get { return ProcedimientosConstantes.PrcCorreoObt; }
+        }
     }
 
     [Serializable]
