@@ -238,11 +238,18 @@ namespace JusFramework.Bl
 
         protected override void DataPortal_DeleteSelf()
         {
+            var hijos= this.FieldManager.GetChildren();
+            foreach (var child in hijos)
+            {
+                
+            }
+            FieldManager.UpdateChildren();
             DataPortal_Delete(Id);
         }
 
         protected void DataPortal_Delete(int criteria)
         {
+            var hijos = this.FieldManager.GetChildren();
 
             //crear la conexion a la base
             if (Db == null)

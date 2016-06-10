@@ -11,17 +11,7 @@ namespace JusNucleo.Bl.Personas
     public class PersonaCorreos : JusBusinessListBase<PersonaCorreos, PersonaCorreo>
     {
         #region Factory Methods
-
-        //internal static PersonaCorreos NewEditableChildList()
-        //{
-        //    return DataPortal.CreateChild<PersonaCorreos>();
-        //}
-
-        //internal static PersonaCorreos GetEditableChildList(
-        //  object childData)
-        //{
-        //    return DataPortal.FetchChild<PersonaCorreos>(childData);
-        //}
+       
 
         private PersonaCorreos()
         { }
@@ -85,34 +75,7 @@ namespace JusNucleo.Bl.Personas
 
         #region Data Access
 
-        //protected override void Child_Create()
-        //{
-        //    // TODO: load default values
-        //    // omit this override if you have no defaults to set
-        //    base.Child_Create();
-        //}
-        /*
-
-        private void Child_Fetch(object childData)
-        {
-            // TODO: load values
-        }
-
-        private void Child_Insert(object parent)
-        {
-            // TODO: insert values
-        }
-
-        private void Child_Update(object parent)
-        {
-            // TODO: update values
-        }
-
-        private void Child_DeleteSelf(object parent)
-        {
-            // TODO: delete values
-        }
-        */
+       
         #endregion
 
         protected override string ObtenerSp
@@ -142,7 +105,7 @@ namespace JusNucleo.Bl.Personas
 
         protected override void Fetch(IDataReader dr)
         {
-            throw new NotImplementedException();
+            Correo = dr["cor_correo"].ToString();
         }
     }
 }

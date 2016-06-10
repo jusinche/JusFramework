@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using Csla;
-using Csla.Core;
 
 namespace JusFramework.Bl
 {
@@ -25,16 +24,22 @@ namespace JusFramework.Bl
         }
 
        
-
-
         protected void Child_Update()
         {
             DataPortal_Update();
         }
 
-        protected void Child_Delete()
+        protected void Child_DeleteSelf()
         {
             DataPortal_DeleteSelf();
         }
+
+        protected void Child_Fetch(IDataReader dr)
+        {
+            AddCommonData(dr);
+            Fetch(dr);
+        }
+
+        
     }
 }

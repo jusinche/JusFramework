@@ -32,7 +32,9 @@ namespace JusFramework.Bl
 
         #region Data Access
 
+        [NonSerialized]
         protected DatabaseConection Db;
+        [NonSerialized]
         protected IDbCommand Comando;
 
         protected abstract string NombreProcedimiento { get; }

@@ -72,21 +72,46 @@ namespace JusFramework.test.BlTest.PersonaBlTest
 
 
 
-        [TestMethod]
-        public void GetPersonaCorreo()
-        {
-            RegisterDependency.Init();
+        //[TestMethod]
+        //public void GetPersonaCorreo()
+        //{
+        //    RegisterDependency.Init();
 
-            var t1 = DateTime.Now.Ticks;
-            var personaCriteria = PersonaNaturalCriteria.New();
-            personaCriteria.Identificacion = "1103776313";
-            var personaList = PersonaNaturalList.Get(personaCriteria);
-            var persona = PersonaNatural.Get(personaList.First().Id);
+        //    var t1 = DateTime.Now.Ticks;
+        //    var personaCriteria = PersonaNaturalCriteria.New();
+        //    personaCriteria.Identificacion = "1103776313";
+        //    var personaList = PersonaNaturalList.Get(personaCriteria);
+        //    var persona = PersonaNatural.Get(personaList.First().Id);
+        //    var leng = persona.Correos.Count;
+        //    var t2 = DateTime.Now.Ticks;
+        //    System.Diagnostics.Trace.WriteLine("T1:" + ((t2 - t1)/1000));
+        //    Assert.AreNotEqual(persona.Correos.Count, 0);
+        //    //var correo = PersonaCorreo.New();
+        //    //correo.Correo = "jusinche@hotmail";
+        //    //persona.Correos.Add(correo);
+        //    persona.Correos.RemoveAt(1);
+        //    var persona2=persona.Save();
+        //    Assert.AreNotEqual(leng, 0);
             
-            var t2 = DateTime.Now.Ticks;
-            System.Diagnostics.Trace.WriteLine("T1:" + ((t2 - t1)/1000));
-            Assert.AreNotEqual(persona.Correos.Count, 0);
-        }
+        //    Assert.AreNotEqual(leng, persona2.Correos.Count);
+        //}
+
+        //[TestMethod]
+        //public void DeletePersona()
+        //{
+        //    RegisterDependency.Init();
+
+        //    var t1 = DateTime.Now.Ticks;
+        //    var personaCriteria = PersonaNaturalCriteria.New();
+        //    personaCriteria.Identificacion = "1103776313";
+        //    var personaList = PersonaNaturalList.Get(personaCriteria);
+        //    var persona = PersonaNatural.Get(personaList.First().Id);
+            
+        //    persona.Delete();
+        //    persona.Save();
+
+        //    Assert.AreNotEqual(personaList.Count, 0);
+        //}
 
         /* [TestMethod]
         public void PersonaCreate1()

@@ -53,9 +53,10 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
     --ELIMINA una persona por su id
     PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, ec_usuario varchar2, sn_reg_modificados out number)IS
     BEGIN
-        PKG_AUDITORIA.AUDITAR(en_ID , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_BORRAR );    
+        PKG_AUDITORIA.AUDITAR(en_ID , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_BORRAR );
+        PKG_ADM_COMUN.PRC_ELIMINAR('TNEG_CORREO',  'PER_ID', en_id);
         DELETE TNEG_PERSONA_NATURAL WHERE per_id=en_id and  PER_VERSION =en_version;
-         DELETE TNEG_PERSONA WHERE per_id=en_id and  PER_VERSION =en_version;
+        DELETE TNEG_PERSONA WHERE per_id=en_id and  PER_VERSION =en_version;
          sn_reg_modificados := SQL%ROWCOUNT;  
     END PRC_PERSONA_DEL;
     --Obtiene una persona por su id
