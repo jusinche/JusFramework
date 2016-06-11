@@ -25,6 +25,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
                                              PER_ID, PER_GENERO, PER_FECHA_NACIMIENTO,   PER_ESTADO_CIVIL) 
             VALUES ( ec_usuario, ec_primer_nombre, ec_segundo_nombre ,ec_primer_apellido,ec_segundo_apellido,
              sn_id,en_genero,ef_fecha_nac, en_estado_civil);
+          INSERT INTO TNEG_IDENTIFICACION ( PER_ID, IDE_USUARIO_MOD, IDE_TIPO, IDE_PRINCIPAL, IDE_NUMERO,  IDE_ID) 
+         VALUES ( sn_id, ec_usuario,en_tipo_identificacion,'S',ec_identificacion,SNEG_IDENTIFICACION.nextval);
     END PRC_PERSONA_INS;
     /*Permite actualizar UNA PERSONA NATURAL*/
     PROCEDURE PRC_PERSONA_ACT( ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,
@@ -53,8 +55,9 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
     --ELIMINA una persona por su id
     PROCEDURE PRC_PERSONA_DEL(en_id number,en_version number, ec_usuario varchar2, sn_reg_modificados out number)IS
     BEGIN
-        PKG_AUDITORIA.AUDITAR(en_ID , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_BORRAR );
+        PKG_AUDITORIA.AUDITAR(en_id , 'TNEG_PERSONA_NATURAL' , ec_usuario , PKG_AUDITORIA.CC_BORRAR );
         PKG_ADM_COMUN.PRC_ELIMINAR('TNEG_CORREO',  'PER_ID', en_id);
+        PKG_ADM_COMUN.PRC_ELIMINAR('TNEG_IDENTIFICACION',  'PER_ID', en_id);
         DELETE TNEG_PERSONA_NATURAL WHERE per_id=en_id and  PER_VERSION =en_version;
         DELETE TNEG_PERSONA WHERE per_id=en_id and  PER_VERSION =en_version;
          sn_reg_modificados := SQL%ROWCOUNT;  
@@ -78,7 +81,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
                         PER_GENERO, genero.ite_nombre genero, PER_FECHA_NACIMIENTO, PER_ESTADO_CIVIL, estado_civil.ite_nombre estado_civil
                     FROM TNEG_PERSONA_NATURAL PER, TNEG_PERSONA per1, tadm_item_catalogo tipo_id, tadm_item_catalogo genero, tadm_item_catalogo estado_civil
                     WHERE per.per_id=per1.per_id and per1.per_tipo_identificacion=tipo_id.ite_id and per.per_genero=GENERO.ITE_ID and per.per_estado_civil=estado_civil.ite_id
-                    and (ec_identificacion is null or per1.per_identificacion like '%'||ec_identificacion||'%')
+                    and (ec_identificacion is null or per1.per_identificacion like '%'||ec_identificacion||'%'
+                     or per.per_id in (select ide.per_id from tneg_identificacion ide where ide.ide_numero like '%'||ec_identificacion||'%'))
                     and (ec_primer_nombre is null or per.per_primer_nombre like '%'||ec_primer_nombre||'%')
                     and (ec_segundo_nombre is null or per.per_segundo_nombre like '%'||ec_segundo_nombre||'%')
                     and (ec_primer_apellido is null or per.per_primer_apellido like '%'||ec_primer_apellido||'%')

@@ -11,7 +11,7 @@
         //fin persona
 
         //Cuenta de usuario
-        private const string PkgCuenta = "PKG_NEG_PERSONA.";
+        private const string PkgCuenta = "PKG_SEG_CUENTA.";
         public const string PrcCuentaIns = PkgCuenta + "PRC_CUENTA_INS";
         public const string PrcCuentaAct = PkgCuenta + "PRC_CUENTA_ACT";
         public const string PrcCuentaObt = PkgCuenta + "PRC_CUENTA_OBT";

@@ -10,3 +10,6 @@ VALUES (  'admin','Administrador',sSEG_ROL.nextval, (select ITE.itE_id from tadm
 --inserte cuenta rol
 INSERT INTO TSEG_CUE_ROL ( ROL_ID, CUE_ID,     CRO_USUARIO_MOD, CRO_ID) 
 VALUES ( (select rol_id from tseg_rol where rol_nombre ='Administrador'), (select cue_id from tseg_cuenta where CUE_LOGIN ='admin'), 'admin', sSEG_CUE_ROL.nextval);
+--Creacion del sistema
+INSERT INTO TSEG_SISTEMA (   SIS_NOMBRE,  SIS_ID,     SIS_CODIGO) 
+VALUES ( 'SISTEMA UNO', SSEG_SISTEMA.NEXTVAL,'SIS001');

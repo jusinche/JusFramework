@@ -70,6 +70,20 @@ namespace JusFramework.test.BlTest.PersonaBlTest
             Assert.AreNotEqual(personaList1.Count, personaList.Count);
         }
 
+        [TestMethod]
+        public void GetPersonaList()
+        {
+            RegisterDependency.Init();
+
+            var t1 = DateTime.Now.Ticks;
+            var personaCriteria = PersonaNaturalCriteria.New();
+            personaCriteria.Identificacion = "001";
+            var personaList = PersonaNaturalList.Get(personaCriteria);
+            //var persona = PersonaNatural.Get(personaList.First().Id);
+            var t2 = DateTime.Now.Ticks;
+            System.Diagnostics.Trace.WriteLine("T2:" + ((t2 - t1) / 1000));
+            Assert.AreNotEqual(personaList.Count, 0);
+        }
 
 
         //[TestMethod]
