@@ -43,25 +43,7 @@
                     Principal
                 </a>
             </li>
-            @*<li>
-                    <a href='#tab1'>
-                        Tab 1
-                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
-                    </a>
-                </li>
-                <li>
-                    <a href='#tab2'>
-                        Tab 2
-                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
-                    </a>
-
-                </li>
-                <li>
-                    <a href='#tab3'>
-                        Tab 3
-                        <span onclick="return cerrarTab(this);"><img src="~/Recursos/Imagenes/close_icon.png" height="15" width="18" style="padding-left: 1px;" /></span>
-                    </a>
-                </li>*@
+            
         </ul>
         <div id="bodyTabs">
             <div id='tab0' class="tab_content">
@@ -99,15 +81,16 @@ else
         float: left;
         overflow: hidden;
         position: relative;
-        margin-top: 10px;
+        margin-top: 0px;
         min-height: 100%;
         height: 100%;
     }
-   .tab_content iframe {
-            float: left;
-            min-height: 100%;
-            height: 100%;
-            padding: 0px;
+        .tab_content iframe {
+            height: 100vh;
+            min-height: 100vh;
+            width: 100vh;
+            overflow: hidden;
+            position: fixed;
         }
     .tabs {
         padding: 0px;
@@ -178,7 +161,7 @@ else
             var imgPath = getPathApp('Recursos/Imagenes/close_icon.png');
             $("#headerTabs").append('<li><a href="#' + idTab + '">' + nombre + '<span onclick="return cerrarTab(this);">' +
             '<img src="' + imgPath + '" height="15" width="18" style="padding-left: 1px;" alt="x"/></span></a></li>');
-            $("#bodyTabs").append('<div id="' + idTab + '" class="tab_content"><iframe src="' + url + '"></iframe></div>');
+            $("#bodyTabs").append('<div id="' + idTab + '" class="tab_content"><iframe src="' + url + '" scrolling="auto"></iframe></div>');
         }
         $('a[href=#' + idTab + ']').click();
         return true;

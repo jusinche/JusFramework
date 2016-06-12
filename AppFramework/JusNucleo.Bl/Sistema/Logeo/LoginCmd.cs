@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Data;
 using System.Security.Principal;
 using Csla;
@@ -44,8 +45,15 @@ namespace JusNucleo.Bl.Sistema.Logeo
             LoginCmd cmd = new LoginCmd();
             cmd._usuario = usuario;
 
-            cmd._clave = ServiceLocator.Current.GetInstance<IEncripta>().HashKey(clave);
-            cmd = DataPortal.Execute(cmd);
+            if (Boolean.Parse(ConfigurationManager.AppSettings[ConfigConstantes.Autenticar]))
+            {
+                cmd._clave = ServiceLocator.Current.GetInstance<IEncripta>().HashKey(clave);
+                cmd = DataPortal.Execute(cmd);
+            }
+            else
+            {
+                cmd.SetUsuario();
+            }
 
             return cmd.Result;
         }
@@ -76,10 +84,15 @@ namespace JusNucleo.Bl.Sistema.Logeo
             Int32.TryParse(Db.GetOutputParameterValue(Comando, "sn_cantidad").ToString(), out existe);
             if (existe != 0)
             {
-                var app = new JusApplication();
-                ((JusIdentity)app.Identity).SetCuenta(Cuenta.Get(_usuario));
-                Result = app;
+                SetUsuario();
             }
+        }
+
+        private void SetUsuario()
+        {
+            var app = new JusApplication();
+            ((JusIdentity)app.Identity).SetCuenta(Cuenta.Get(_usuario));
+            Result = app;
         }
     }
 }
