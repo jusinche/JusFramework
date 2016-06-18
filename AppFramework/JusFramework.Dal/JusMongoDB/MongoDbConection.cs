@@ -118,13 +118,12 @@ namespace JusFramework.Dal.JusMongoDB
             {
                 strData = strData + (char)b;
             }
-            return ToHexa(strData);
+            return strData;
         }
 
         // Convert a byte array to an Object
         private Object DeserializeObject(string data)
         {
-            data = ToStr(data);
             var buffer=new List<byte>();
             foreach (var c in data)
             {
@@ -142,7 +141,7 @@ namespace JusFramework.Dal.JusMongoDB
 
         }
 
-        private string ToHexa(string input)
+        /*private string ToHexa(string input)
         {
             char[] values = input.ToCharArray();
             string hexOutput = string.Empty;
@@ -169,6 +168,6 @@ namespace JusFramework.Dal.JusMongoDB
                 strRtr = strRtr + stringValue;
             }
             return strRtr;
-        }
+        }*/
     }
 }

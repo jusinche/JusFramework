@@ -8,7 +8,7 @@ using JusFramework.Cache;
 namespace JusNucleo.Bl.Sistema.Menu
 {
     [Serializable]
-    public class ModuloFuncionalidadCriteria : JusCriteriaBase<ModuloFuncionalidadCriteria>, ICacheable
+    public class ModuloFuncionalidadCriteria : JusCriteriaBase<ModuloFuncionalidadCriteria, ModuloFuncionalidadList, ModuloFuncionalidadInfo>, ICacheable
     {
         #region Business Methods
 
@@ -30,9 +30,12 @@ namespace JusNucleo.Bl.Sistema.Menu
         { /* Require use of factory methods */ }
 
 
-        public string GetKey()
+        public override string GetKey()
         {
             return string.Format("{0}_{1}_{2}", GetType(), SistemaCodigo, Usuario);
         }
+
+
+       
     }
 }

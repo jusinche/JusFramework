@@ -13,29 +13,8 @@ namespace JusNucleo.Bl.Personas
     {
         #region Business Methods
 
-        // TODO: add your own fields, properties and methods
-
-        // example with private backing field
-        /*public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(p => p.Id, RelationshipTypes.PrivateField);
-        private int _Id = IdProperty.DefaultValue;
-        public int Id
-        {
-            get { return GetProperty(IdProperty, _Id); }
-            set { SetProperty(IdProperty, ref _Id, value); }
-        }
-        */
-
-        // example with managed backing field
-        /*
-        public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(p => p.Name);
-        public string Name
-        {
-            get { return GetProperty(NameProperty); }
-            set { SetProperty(NameProperty, value); }
-        }
-         */
-
         public static readonly PropertyInfo<int> TipoIdentificacionProperty = RegisterProperty<int>(p => p.TipoIdentificacion);
+        [Required]
         public int TipoIdentificacion
         {
             get { return GetProperty(TipoIdentificacionProperty); }
@@ -43,6 +22,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> IdenticacionProperty = RegisterProperty<string>(p => p.Identificacion);
+        [Required]
         public string Identificacion
         {
             get { return GetProperty(IdenticacionProperty); }
@@ -59,7 +39,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> SegundoNombreProperty = RegisterProperty<string>(p => p.SegundoNombre);
-         [PersonaNombre]
+        [PersonaNombre]
         public string SegundoNombre
         {
             get { return GetProperty(SegundoNombreProperty); }
@@ -84,6 +64,7 @@ namespace JusNucleo.Bl.Personas
 
 
         public static readonly PropertyInfo<DateTime> FechaNacimientoProperty = RegisterProperty<DateTime>(p => p.FechaNacimiento);
+        [Required]
         public DateTime FechaNacimiento
         {
             get { return GetProperty(FechaNacimientoProperty); }
@@ -91,6 +72,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<int> GeneroProperty = RegisterProperty<int>(p => p.Genero);
+        [Required]
         public int Genero
         {
             get { return GetProperty(GeneroProperty); }
@@ -98,6 +80,7 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<int> EstadoCivilProperty = RegisterProperty<int>(p => p.EstadoCivil);
+        [Required]
         public int EstadoCivil
         {
             get { return GetProperty(EstadoCivilProperty); }

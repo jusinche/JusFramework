@@ -18,6 +18,8 @@ namespace JusFramework.Bl
     {
         protected abstract string NombreProcedimiento { get; }
 
+        
+
         public TCr GetItem(int id)
         {
             return this.First(x => x.Id == id);
@@ -104,9 +106,15 @@ namespace JusFramework.Bl
                 using (IDataReader dr = Db.ExecuteDataReader(Comando))
                 {
 
-                    while (dr.Read())
+                    List<TCr> listaInfo=new List<TCr>();
+
+                    while (dr.Read() && listaInfo.Count<=1000)
                     {
-                        Add(JusReadOnlyBase<TCr>.Get(dr));
+                        listaInfo.Add(JusReadOnlyBase<TCr>.Get(dr));
+                    }
+                    foreach (var info in OrdenarList(listaInfo))
+                    {
+                        Add(info);
                     }
                 }
                 if (Items.Count > 1)
@@ -116,6 +124,7 @@ namespace JusFramework.Bl
                 }
             }
         }
+        protected abstract List<TCr> OrdenarList(List<TCr> lista);
 
         private string Getkey(object criteria)
         {

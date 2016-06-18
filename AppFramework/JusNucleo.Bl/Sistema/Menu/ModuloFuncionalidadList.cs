@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using JusFramework.Bl;
 using JusNucleo.Bl.Comun;
 using DataPortal = Csla.DataPortal;
@@ -34,6 +36,12 @@ namespace JusNucleo.Bl.Sistema.Menu
         {
             get { return new Type[]{};}
         }
+
+        protected override List<ModuloFuncionalidadInfo> OrdenarList(List<ModuloFuncionalidadInfo> lista)
+        {
+            return lista.OrderBy(x => x.ModuloMenu).ThenBy(x => x.FuncionalidadMenu).ToList();
+        }
+
 
         protected void AddParameterCriteria(ModuloFuncionalidadCriteria criteria)
         {

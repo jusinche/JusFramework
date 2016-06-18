@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using JusFramework.Bl;
-using JusFramework.Cache;
 using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
 {
     [Serializable]
-    public class PersonaNaturalList :JusReadOnlyListBase<PersonaNaturalList, PersonaNaturalListInfo>
+    public class PersonaNaturalList :JusReadOnlyListBase<PersonaNaturalList, PersonaNaturalInfo>
     {
 
         #region Factory Methods
@@ -32,6 +33,12 @@ namespace JusNucleo.Bl.Personas
             get { return new []{typeof(PersonaNatural)};}
         }
 
+        protected override List<PersonaNaturalInfo> OrdenarList(List<PersonaNaturalInfo> lista)
+        {
+            return lista.OrderBy(x => x.PrimerApellido).ThenBy(x => x.SegundoApellido).ThenBy(x => x.PrimerNombre).ToList();
+        }
+
+
         protected void AddParameterCriteria(PersonaNaturalCriteria criteria)
         {
             Db.AddParameterWithValue(Comando, "ec_identificacion", DbType.String, criteria.Identificacion);
@@ -44,7 +51,7 @@ namespace JusNucleo.Bl.Personas
     }
 
     [Serializable]
-    public class PersonaNaturalListInfo : JusReadOnlyBase<PersonaNaturalListInfo>
+    public class PersonaNaturalInfo : JusReadOnlyBase<PersonaNaturalInfo>
     {
         #region Business Methods
 
@@ -69,7 +76,7 @@ namespace JusNucleo.Bl.Personas
 
 
 
-        private PersonaNaturalListInfo()
+        private PersonaNaturalInfo()
         { /* require use of factory methods */ }
 
         #endregion

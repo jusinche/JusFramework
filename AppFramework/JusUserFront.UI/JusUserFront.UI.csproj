@@ -144,6 +144,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JusHomeController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
+    <Compile Include="Controllers\PersonaNaturalController.cs" />
     <Compile Include="Domain\MenuItems.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -954,6 +955,11 @@
     <Content Include="Views\Home\Blank.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\JusHome\JusNavbar.cshtml" />
+    <Content Include="Views\PersonaNatural\Index.cshtml" />
+    <Content Include="Views\Shared\SubLayout.cshtml" />
+    <Content Include="Views\PersonaNatural\_Form.cshtml" />
+    <Content Include="Views\PersonaNatural\Create.cshtml" />
+    <Content Include="Views\PersonaNatural\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

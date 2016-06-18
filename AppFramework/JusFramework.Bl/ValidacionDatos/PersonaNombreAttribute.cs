@@ -15,7 +15,5 @@ namespace JusFramework.Bl.ValidacionDatos
              this.ErrorMessage = "POR FAVOR INGRESE UN NOMBRE VALIDO";
             
          }
-
-      
     }
 }

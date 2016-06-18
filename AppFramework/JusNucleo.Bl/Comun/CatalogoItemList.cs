@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Web.Mvc;
 using JusFramework.Bl;
 
 namespace JusNucleo.Bl.Comun
@@ -31,6 +33,23 @@ namespace JusNucleo.Bl.Comun
         protected override Type[] RootClass
         {
             get { return new Type[0];}
+        }
+
+        protected override List<CatalogoItemInfo> OrdenarList(List<CatalogoItemInfo> lista)
+        {
+            return lista.OrderBy(x=>x.Nombre).ToList();
+        }
+
+        public List<SelectListItem> ListItems
+        {
+            get
+            {
+                return Items.Select(f => new SelectListItem
+                                              {
+                                                  Value = f.Id.ToString(),
+                                                  Text = f.Nombre
+                                              }).ToList();
+            }
         }
     }
 

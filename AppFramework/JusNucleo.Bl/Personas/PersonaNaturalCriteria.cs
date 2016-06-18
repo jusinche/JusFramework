@@ -6,10 +6,9 @@ using JusFramework.Cache;
 namespace JusNucleo.Bl.Personas
 {
     [Serializable]
-    public class PersonaNaturalCriteria : JusCriteriaBase<PersonaNaturalCriteria>, ICacheable
+    public class PersonaNaturalCriteria : JusCriteriaBase<PersonaNaturalCriteria, PersonaNaturalList, PersonaNaturalInfo>, ICacheable 
     {
         #region Business Methods
-
 
 
         public static readonly PropertyInfo<string> IdentificacionProperty =
@@ -17,7 +16,7 @@ namespace JusNucleo.Bl.Personas
 
         public string Identificacion
         {
-            get { return GetProperty(IdentificacionProperty); }
+            get { return GetProperty(IdentificacionProperty).ToUpper(); }
             set { SetProperty(IdentificacionProperty, value); }
         }
 
@@ -25,7 +24,7 @@ namespace JusNucleo.Bl.Personas
 
         public string PrimerNombre
         {
-            get { return GetProperty(PrimerNombreProperty); }
+            get { return GetProperty(PrimerNombreProperty).ToUpper(); }
             set { SetProperty(PrimerNombreProperty, value); }
         }
 
@@ -34,7 +33,7 @@ namespace JusNucleo.Bl.Personas
 
         public string SegundoNombre
         {
-            get { return GetProperty(SegundoNombreProperty); }
+            get { return GetProperty(SegundoNombreProperty).ToUpper(); }
             set { SetProperty(SegundoNombreProperty, value); }
         }
 
@@ -43,7 +42,7 @@ namespace JusNucleo.Bl.Personas
 
         public string PrimerApellido
         {
-            get { return GetProperty(PrimerApellidoProperty); }
+            get { return GetProperty(PrimerApellidoProperty).ToUpper(); }
             set { SetProperty(PrimerApellidoProperty, value); }
         }
 
@@ -52,22 +51,24 @@ namespace JusNucleo.Bl.Personas
 
         public string SegundoApellido
         {
-            get { return GetProperty(SegundoApellidoProperty); }
+            get { return GetProperty(SegundoApellidoProperty).ToUpper(); }
             set { SetProperty(SegundoApellidoProperty, value); }
         }
+
+        
+
+        
 
 
         #endregion
 
-        private PersonaNaturalCriteria()
-        {
-            /* Require use of factory methods */
-        }
         
-        public string GetKey()
+
+        public override string GetKey()
         {
             return string.Format("{0}_{1}_{2}_{3}_{4}_{5}", GetType(), Identificacion,PrimerNombre, SegundoNombre, PrimerApellido,SegundoApellido);
-            return null;
         }
+
+        
     }
 }
