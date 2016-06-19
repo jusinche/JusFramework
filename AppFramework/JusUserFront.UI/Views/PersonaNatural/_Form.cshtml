@@ -1,0 +1,54 @@
+﻿@using JusNucleo.Bl.Comun
+@model JusNucleo.Bl.Personas.PersonaNatural
+@{
+    Layout = "~/Views/Shared/SubLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">PERSONA</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>TIPO IDENTIFICACIÓN</label>
+                        @Html.DropDownListFor(x => x.TipoIdentificacion, CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo).ListItems, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>PRIMER APELLIDO</label>
+                        @Html.TextBoxFor(x => x.PrimerApellido, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>PRIMER NOMBRE</label>
+                        @Html.TextBoxFor(x => x.PrimerNombre, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>FECHA NACIMIENTO</label>
+                        @Html.TextBoxFor(x => x.FechaNacimiento, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>IDENTIFICACIÓN</label>
+                        @Html.TextBoxFor(x => x.Identificacion, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>SEGUNDO APELLIDO</label>
+                        @Html.TextBoxFor(x => x.SegundoApellido, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>SEGUNDO NOMBRE</label>
+                        @Html.TextBoxFor(x => x.SegundoNombre, new {@class = "form-control"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    
+
+    $('#FechaNacimiento').datepicker(); //Initialise any date pickers
+</script>

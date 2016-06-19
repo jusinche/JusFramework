@@ -20,26 +20,36 @@
     <script src="@Url.Content("~/bower_components/jquery/dist/jquery.min.js")"></script>
     @Scripts.Render("~/bundles/bootstrap")
     <script src="@Url.Content("~/bower_components/metisMenu/dist/metisMenu.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/locales/bootstrap-datepicker.es.min.js")"></script>
+
+
+    @*<script src="../resource/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../resource/js/form-elements.js"></script>*@
     <title></title>
     @Scripts.Render("~/Scripts/sb-admin-2.js")
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div id="wrapper">
-        <div id="page-wrapper" style="margin: 0px 0px 0px 0px;">
-            @RenderBody()
-        </div>
-        <!-- /#page-wrapper -->
+<div id="wrapper">
+    <div id="page-wrapper" style="margin: 0px 0px 0px 0px;">
+        @RenderBody()
     </div>
-    <!-- /#wrapper -->
-    <!-- DataTables JavaScript -->
-    <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
-    <!-- DataTables JavaScript -->
-    <script src="@Url.Content("~/bower_components/datatables/media/js/jquery.dataTables.min.js")"></script>
-    <script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
-    <!-- Custom Theme JavaScript -->
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- DataTables JavaScript -->
+<script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
+<!-- DataTables JavaScript -->
+<script src="@Url.Content("~/bower_components/datatables/media/js/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
+<!-- Custom Theme JavaScript -->
 <script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
-    
+
 </body>
+
 </html>
 

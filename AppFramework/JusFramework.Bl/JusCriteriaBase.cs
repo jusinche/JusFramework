@@ -46,9 +46,9 @@ namespace JusFramework.Bl
                 if (_lista != null)
                 {
                     var hasta = Hasta;
-                    for (int i = Desde; i < hasta; i++)
+                    for (int i = Desde; i <= hasta; i++)
                     {
-                        lista.Add(_lista[i]);
+                        lista.Add(_lista[i-1]);
                     }
                 }
                 return lista;
