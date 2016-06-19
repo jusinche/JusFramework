@@ -35,8 +35,6 @@
 
     @if (Request.IsAuthenticated)
 {
-    
-
         <ul class='tabs' id="headerTabs">
             <li>
                 <a href='#tab0'>
@@ -136,7 +134,7 @@ else
 
 </style>
 <script>
-
+    
 
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -146,7 +144,7 @@ else
     var cerrarTab = function(obj) {
         var tabContentId = $(obj).parent().attr("href");
         $(obj).parent().parent().remove(); //remove li of tab
-       // $('#myTab a:last').tab('show'); // Select first tab
+        // $('#myTab a:last').tab('show'); // Select first tab
         $(tabContentId).remove();
         //$('a[href=#' + idTab + ']').click();
     }
@@ -158,7 +156,7 @@ else
         if (tabExistente == null) {
             var imgPath = getPathApp('Recursos/Imagenes/close_icon.png');
             $("#headerTabs").append('<li><a href="#' + idTab + '">' + nombre + '<span onclick="return cerrarTab(this);">' +
-            '<img src="' + imgPath + '" height="15" width="18" style="padding-left: 1px;" alt="x"/></span></a></li>');
+                '<img src="' + imgPath + '" height="15" width="18" style="padding-left: 1px;" alt="x"/></span></a></li>');
             $("#bodyTabs").append('<div id="' + idTab + '" class="tab_content"><div id="page-wrapper" style="margin:0 0 0 14px; padding:0;"><iframe src="' + getPathApp(url) + '"  class="row" frameborder="0" width="100%" height="100%" scrolling="default"></iframe></div></div>');
         }
         $('a[href=#' + idTab + ']').click();
@@ -167,40 +165,47 @@ else
     
 
 </script>
-    <script>$('ul.tabs').each(function () {
-    // For each set of tabs, we want to keep track of
-    // which tab is active and its associated content
-    var $active, $content, $links = $(this).find('a');
+<script>
+    $('ul.tabs').each(function() {
+        // For each set of tabs, we want to keep track of
+        // which tab is active and its associated content
+        var $active, $content, $links = $(this).find('a');
 
-    // If the location.hash matches one of the links, use that as the active tab.
-    // If no match is found, use the first link as the initial active tab.
-    $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
-    $active.addClass('active');
-    $content = $($active[0].hash);
-
-    // Hide the remaining content
-    $links.not($active).each(function () {
-        $(this.hash).hide();
-    });
-
-    // Bind the click event handler
-    $(this).on('click', 'a', function (e) {
-        // Make the old tab inactive.
-        $active.removeClass('active');
-        $content.hide();
-
-        // Update the variables with the new link and content
-        $active = $(this);
-        $content = $(this.hash);
-
-        // Make the tab active.
+        // If the location.hash matches one of the links, use that as the active tab.
+        // If no match is found, use the first link as the initial active tab.
+        $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
         $active.addClass('active');
-        $content.show();
+        $content = $($active[0].hash);
 
-        // Prevent the anchor's default click action
-        e.preventDefault();
+        // Hide the remaining content
+        $links.not($active).each(function() {
+            $(this.hash).hide();
+        });
+
+        // Bind the click event handler
+        $(this).on('click', 'a', function(e) {
+            // Make the old tab inactive.
+            $active.removeClass('active');
+            $content.hide();
+
+            // Update the variables with the new link and content
+            $active = $(this);
+            $content = $(this.hash);
+
+            // Make the tab active.
+            $active.addClass('active');
+            $content.show();
+
+            // Prevent the anchor's default click action
+            e.preventDefault();
+        });
     });
-});</script>
+</script>
+<script>
+    if (window.top.location.href == "" || window.top.location.href == undefined ||window.top.location.href != self.location.href)
+            window.top.location.href = self.location.href;
+    
+</script>
     @*@RenderSection("scripts", required: false)*@
 </body>
 </html>

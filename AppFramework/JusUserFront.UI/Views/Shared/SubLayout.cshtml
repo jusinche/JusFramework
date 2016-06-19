@@ -24,7 +24,6 @@
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
 
-    <script src="@Url.Content("~/Scripts/locales/bootstrap-datepicker.es.min.js")"></script>
 
 
     @*<script src="../resource/js/jquery-ui.js"></script>
@@ -34,12 +33,19 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-<div id="wrapper">
-    <div id="page-wrapper" style="margin: 0px 0px 0px 0px;">
-        @RenderBody()
+@if (Request.IsAuthenticated)
+{
+    <div id="wrapper">
+        <div id="page-wrapper" style="margin: 0px 0px 0px 0px;">
+            @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
     </div>
-    <!-- /#page-wrapper -->
-</div>
+}
+else
+{
+    Response.Redirect("~/JusHome/Index");
+}
 <!-- /#wrapper -->
 <!-- DataTables JavaScript -->
 <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
