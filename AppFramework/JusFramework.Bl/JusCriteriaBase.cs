@@ -109,6 +109,17 @@ namespace JusFramework.Bl
             set { _numeroPagina = value; }
         }
 
+        public string Mensaje {
+            get
+            {
+                if (_lista==null)
+                {
+                    return String.Empty;
+                }
+                return String.Format("REGISTRO {0} HASTA {1} DE {2}", Desde, Hasta, _lista.Count);
+            }
+        }
+
         public void Buscar()
         {
             _lista = JusReadOnlyListBase<TP, TS>.Get(this);

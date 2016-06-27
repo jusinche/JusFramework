@@ -23,11 +23,31 @@
 
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
+    <script src="~/Scripts/_jusFrontApp.js"></script>
 
+    @*<script type="text/javascript">
+        $(function ($) {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
+    </script>*@
 
-
-    @*<script src="../resource/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="../resource/js/form-elements.js"></script>*@
     <title></title>
     @Scripts.Render("~/Scripts/sb-admin-2.js")
     @RenderSection("scripts", required: false)
@@ -39,14 +59,12 @@
         <div id="page-wrapper" style="margin: 0px 0px 0px 0px;">
             @RenderBody()
         </div>
-        <!-- /#page-wrapper -->
     </div>
 }
 else
 {
     Response.Redirect("~/JusHome/Index");
 }
-<!-- /#wrapper -->
 <!-- DataTables JavaScript -->
 <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
 <!-- DataTables JavaScript -->
@@ -54,8 +72,5 @@ else
 <script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
 <!-- Custom Theme JavaScript -->
 <script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
-
 </body>
-
 </html>
-

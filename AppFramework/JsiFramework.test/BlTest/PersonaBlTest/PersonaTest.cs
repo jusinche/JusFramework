@@ -106,7 +106,7 @@ namespace JusFramework.test.BlTest.PersonaBlTest
         //    persona.Correos.RemoveAt(1);
         //    var persona2=persona.Save();
         //    Assert.AreNotEqual(leng, 0);
-            
+
         //    Assert.AreNotEqual(leng, persona2.Correos.Count);
         //}
 

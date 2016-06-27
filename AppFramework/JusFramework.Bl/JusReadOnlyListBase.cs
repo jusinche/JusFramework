@@ -17,9 +17,7 @@ namespace JusFramework.Bl
         where TCr : JusReadOnlyBase<TCr>
     {
         protected abstract string NombreProcedimiento { get; }
-
-        
-
+       
         public TCr GetItem(int id)
         {
             return this.First(x => x.Id == id);
@@ -40,6 +38,11 @@ namespace JusFramework.Bl
 
             IsReadOnly = true;
             RaiseListChangedEvents = true;
+        }
+
+        private int _totalRegistros;
+        public int TotalRegistros {
+            get { return _totalRegistros; }
         }
 
         protected void Child_Fetch(object criteria)
@@ -102,13 +105,13 @@ namespace JusFramework.Bl
                             NombreMetodo, criteria.GetType()));
                     }
                 }
+                Db.AddParameter(Comando, "sn_total_registros", DbType.Int32, ParameterDirection.Output);
                 Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
                 using (IDataReader dr = Db.ExecuteDataReader(Comando))
                 {
-
-                    List<TCr> listaInfo=new List<TCr>();
-
-                    while (dr.Read() && listaInfo.Count<=1000)
+                    List<TCr> listaInfo = new List<TCr>();
+                    Int32.TryParse(Db.GetOutputParameterValue(Comando, "sn_total_registros").ToString(), out _totalRegistros);
+                    while (dr.Read() && listaInfo.Count<500)
                     {
                         listaInfo.Add(JusReadOnlyBase<TCr>.Get(dr));
                     }
@@ -125,6 +128,7 @@ namespace JusFramework.Bl
             }
         }
         protected abstract List<TCr> OrdenarList(List<TCr> lista);
+
 
         private string Getkey(object criteria)
         {

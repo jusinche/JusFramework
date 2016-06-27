@@ -5,7 +5,8 @@
             @Html.Partial("_Form")
 
             <div class="text-center">
-                <input type="submit" value="Guardar" class="btn btn-default"/>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "Index", "PersonaNatural", new { @class = "btn btn-default" })
             </div>
         }
     </div>

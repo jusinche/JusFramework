@@ -40,6 +40,18 @@ namespace JusFramework.Bl
             Fetch(dr);
         }
 
-        
+        private bool _isEraser;
+        public bool IsEraser {
+            get { return _isEraser; }
+            set
+            {
+                if (value)
+                {
+                    Parent.RemoveChild(this);    
+                }
+                _isEraser = value;
+            }
+        }
+
     }
 }

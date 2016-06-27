@@ -13,7 +13,7 @@ namespace JusFramework.Bl.ValidacionDatos
              :base(@"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
 
          {
-             this.ErrorMessage = "POR FAVOR INGRESE UNA DIRECCIÓN DE CORREO ELECTRÓNICA VALIDA";
+             this.ErrorMessage = "INGRESE UNA DIRECCIÓN DE CORREO ELECTRÓNICA VALIDA";
          }
     }
 }

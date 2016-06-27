@@ -15,5 +15,7 @@ namespace JusUserFront.UI.Models
 
         [Display(Name = "¿Recordar clave?")]
         public bool RememberMe { get; set; }
+
+        public bool ShowMessage { get; set; }
     }
 }

@@ -10,7 +10,7 @@
     --Obtiene una persona por su id
     PROCEDURE PRC_PERSONA_OBT(en_id number,sq_resultado out sys_refcursor);
     --Obtiene un listado de personas segun el criterio
-    PROCEDURE PRC_PERSONA_OBT(ec_identificacion varchar2, ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,sq_resultado out sys_refcursor);
+    PROCEDURE PRC_PERSONA_OBT(ec_identificacion varchar2, ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,sn_total_registros out number,sq_resultado out sys_refcursor);
 END PKG_NEG_PERSONA;
 
 CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
@@ -73,8 +73,17 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
                     WHERE per.per_id=per1.per_id and per.per_id=en_id;
     END PRC_PERSONA_OBT;
     --Obtiene un listado de personas segun el criterio
-    PROCEDURE PRC_PERSONA_OBT(ec_identificacion varchar2, ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,sq_resultado out sys_refcursor) IS
+    PROCEDURE PRC_PERSONA_OBT(ec_identificacion varchar2, ec_primer_nombre varchar2, ec_segundo_nombre varchar2, ec_primer_apellido varchar2, ec_segundo_apellido varchar2,sn_total_registros out number,sq_resultado out sys_refcursor) IS
     BEGIN
+        SELECT count(*) into sn_total_registros
+                    FROM TNEG_PERSONA_NATURAL PER, TNEG_PERSONA per1, tadm_item_catalogo tipo_id, tadm_item_catalogo genero, tadm_item_catalogo estado_civil
+                    WHERE per.per_id=per1.per_id and per1.per_tipo_identificacion=tipo_id.ite_id and per.per_genero=GENERO.ITE_ID and per.per_estado_civil=estado_civil.ite_id
+                    and (ec_identificacion is null or per1.per_identificacion like '%'||ec_identificacion||'%'
+                     or per.per_id in (select ide.per_id from tneg_identificacion ide where ide.ide_numero like '%'||ec_identificacion||'%'))
+                    and (ec_primer_nombre is null or per.per_primer_nombre like '%'||ec_primer_nombre||'%')
+                    and (ec_segundo_nombre is null or per.per_segundo_nombre like '%'||ec_segundo_nombre||'%')
+                    and (ec_primer_apellido is null or per.per_primer_apellido like '%'||ec_primer_apellido||'%')
+                    and (ec_segundo_apellido is null or per.per_segundo_apellido like '%'||ec_segundo_apellido||'%');
         OPEN sq_resultado FOR
         SELECT per.per_id, per1.per_tipo_identificacion, tipo_id.ite_nombre tipo_identificacion, per1.per_identificacion,  PER_SEGUNDO_NOMBRE, 
                        PER_SEGUNDO_APELLIDO, PER_PRIMER_NOMBRE, PER_PRIMER_APELLIDO, 
@@ -86,7 +95,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
                     and (ec_primer_nombre is null or per.per_primer_nombre like '%'||ec_primer_nombre||'%')
                     and (ec_segundo_nombre is null or per.per_segundo_nombre like '%'||ec_segundo_nombre||'%')
                     and (ec_primer_apellido is null or per.per_primer_apellido like '%'||ec_primer_apellido||'%')
-                    and (ec_segundo_apellido is null or per.per_segundo_apellido like '%'||ec_segundo_apellido||'%');
+                    and (ec_segundo_apellido is null or per.per_segundo_apellido like '%'||ec_segundo_apellido||'%');         
     END PRC_PERSONA_OBT;
 END PKG_NEG_PERSONA;
 

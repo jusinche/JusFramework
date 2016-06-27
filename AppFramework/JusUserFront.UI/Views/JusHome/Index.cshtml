@@ -17,7 +17,6 @@
 
     <link href="@Url.Content("~/bower_components/morrisjs/morris.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
-
     <!-- jQuery -->
     @Scripts.Render("~/bundles/jquery")
     <script src="@Url.Content("~/bower_components/jquery/dist/jquery.min.js")"></script>
@@ -65,7 +64,6 @@ else
 <!-- /#wrapper -->
     <!-- DataTables JavaScript -->
     <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
-
     <!-- DataTables JavaScript -->
     <script src="@Url.Content("~/bower_components/datatables/media/js/jquery.dataTables.min.js")"></script>
     <script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
@@ -202,7 +200,7 @@ else
     });
 </script>
 <script>
-    if (window.top.location.href == "" || window.top.location.href == undefined ||window.top.location.href != self.location.href)
+    if (window.top.location.href != self.location.href)
             window.top.location.href = self.location.href;
     
 </script>

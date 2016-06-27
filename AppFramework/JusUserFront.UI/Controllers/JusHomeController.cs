@@ -54,21 +54,14 @@ namespace JusUserFront.UI.Controllers
                         FormsAuthentication.RedirectFromLoginPage(model.UserName, false);
                         return RedirectToLocal("~/JusHome/Index");
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Usuario o clave Incorrecta");
-                    }
                 }
-
-                // If we got this far, something failed, redisplay form
-                return null; //System.Web.UI.WebControls.View(model);
+                model.ShowMessage = true;
+                return View("Login", model);
             }
             catch (Exception ex)
             {
-
                 ModelState.AddModelError("", ManejadorExcepciones.GetMensaje(ex));
                 //Flash.Error();
-
             }
             return null;
             //return System.Web.UI.WebControls.View(model);

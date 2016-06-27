@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Csla;
 using JusFramework.Bl;
+using JusFramework.Bl.ValidacionDatos;
 using JusNucleo.Bl.Comun;
 
 namespace JusNucleo.Bl.Personas
@@ -13,8 +15,7 @@ namespace JusNucleo.Bl.Personas
         #region Factory Methods
        
 
-        private PersonaCorreos()
-        { }
+        //private PersonaCorreos(){ }
 
         #endregion
 
@@ -40,9 +41,14 @@ namespace JusNucleo.Bl.Personas
     {
         #region Business Methods
 
-        
+        public int CorreoId {
+            get { return Id; }
+        }
+
         // example with managed backing field
         public static readonly PropertyInfo<string> CorreoProperty = RegisterProperty<string>(p => p.Correo);
+        [Required]
+        [Email]
         public string Correo
         {
             get { return GetProperty(CorreoProperty); }
@@ -68,8 +74,8 @@ namespace JusNucleo.Bl.Personas
         //    return DataPortal.FetchChild<PersonaCorreo>(childData);
         //}
 
-        private PersonaCorreo()
-        { /* Require use of factory methods */ }
+        //private PersonaCorreo()
+        //{ /* Require use of factory methods */ }
 
         #endregion
 

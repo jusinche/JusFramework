@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using System.Web.Security;
 using JusUserFront.UI.ManejadorExcepciones;
 using JusNucleo.Bl.Sistema.Logeo;
 using Microsoft.Practices.ServiceLocation;
@@ -8,7 +7,7 @@ using Microsoft.Practices.ServiceLocation;
 namespace JusUserFront.UI.BaseUI
 {
     [HandleError]
-    public class JusControllerBase : Controller
+    public class JusControllerBase : Csla.Web.Mvc.Controller, Csla.Web.Mvc.IModelCreator
     {
 
         /*[SetterProperty]
@@ -85,7 +84,27 @@ namespace JusUserFront.UI.BaseUI
                     }
                 }
             }
-            
         }
+        
+
+        /*public object CreateModel(Type modelType)
+        {
+            if (modelType == typeof(JusBusinessBaseERoot<>))
+                return JusBusinessBaseERoot.New();
+            else if (modelType == typeof(JusBusinessListBase<>))
+                return EditableChildList.New();
+            else if (modelType == typeof(JusBusinessBaseEChild<>))
+                return EditableChild.New(0);
+            else
+                return Activator.CreateInstance(modelType);
+        }*/
+        public object CreateModel(Type modelType)
+        {
+            //throw new NotImplementedException();
+            
+            return null;
+        }
+
+        
     }
 }

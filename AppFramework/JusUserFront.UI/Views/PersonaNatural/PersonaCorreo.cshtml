@@ -1,0 +1,17 @@
+﻿@model JusNucleo.Bl.Personas.PersonaCorreo
+<tr>
+    <td>
+        @Html.HiddenFor(m => Model.IsEraser)
+        @Html.HiddenFor(m => Model.CorreoId)
+        @Html.HiddenFor(m => Model.Version)
+        <a class="delete-correo">
+            <p class="fa fa-times"></p>
+        </a>
+    </td>
+    <td>
+        <div class="text-center">
+            @Html.TextBoxFor(x => Model.Correo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Correo, String.Empty, new { @style = "color:red" })
+        </div>
+    </td>
+</tr>

@@ -27,6 +27,10 @@ namespace JusFramework.Bl
             return DataPortal.Fetch<T>(id);
         }
 
+        public TS NewChild()
+        {
+            return DataPortal.Create<TS>();
+        }
 
         #endregion
 

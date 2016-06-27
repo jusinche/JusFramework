@@ -1,14 +1,19 @@
 ﻿@model JusNucleo.Bl.Personas.PersonaNatural
 <div class="row">
     <div class="col-lg-12">
-       
-        @using (Html.BeginForm("Index", "PersonaNatural", FormMethod.Post))
+
+        @using (Html.BeginForm("Create", "PersonaNatural", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "id", "CrearPersona" } }))
         {
             @Html.Partial("_Form")
 
             <div class="text-center">
-                <input type="submit" value="Guardar" class="btn btn-default"/>
+
+                <input type="submit" value="Guardar" class="btn btn-primary"/>
+                @Html.ActionLink("Cancelar", "Index", "PersonaNatural", new {@class="btn btn-default"})
             </div>
         }
     </div>
 </div>
+<script>
+   
+</script>

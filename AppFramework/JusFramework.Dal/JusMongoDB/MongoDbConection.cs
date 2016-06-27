@@ -101,8 +101,6 @@ namespace JusFramework.Dal.JusMongoDB
             return _mongoCollection.Find(x=>x.Key !=String.Empty).ToList().Count;
         }
 
-         
-
         private string SerializeObject(Object obj)
         {
             if (obj == null)
@@ -132,7 +130,6 @@ namespace JusFramework.Dal.JusMongoDB
 
             byte[] arrBytes = buffer.ToArray();
 
-
             MemoryStream memStream = new MemoryStream();
             BinaryFormatter binForm = new BinaryFormatter();
             memStream.Write(arrBytes, 0, arrBytes.Length);
@@ -140,34 +137,5 @@ namespace JusFramework.Dal.JusMongoDB
             return binForm.Deserialize(memStream);
 
         }
-
-        /*private string ToHexa(string input)
-        {
-            char[] values = input.ToCharArray();
-            string hexOutput = string.Empty;
-            foreach (char letter in values)
-            {
-                // Get the integral value of the character.
-                int value = Convert.ToInt32(letter);
-                // Convert the decimal value to a hexadecimal value in string form.
-                 hexOutput =hexOutput+ String.Format("{0:X}", value)+" ";
-            }
-            return hexOutput.Trim();
-        }
-
-        private string ToStr(string hexValues)
-        {
-            string[] hexValuesSplit = hexValues.Split(' ');
-            string strRtr = string.Empty;
-            foreach (String hex in hexValuesSplit)
-            {
-                // Convert the number expressed in base-16 to an integer.
-                int value = Convert.ToInt32(hex, 16);
-                // Get the character corresponding to the integral value.
-                string stringValue = Char.ConvertFromUtf32(value);
-                strRtr = strRtr + stringValue;
-            }
-            return strRtr;
-        }*/
     }
 }

@@ -47,7 +47,9 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> PrimerApellidoProperty = RegisterProperty<string>(p => p.PrimerApellido);
-         [PersonaNombre]
+        [PersonaNombre]
+        [Display(Name = "PRIMER APELLIDO")]
+        [Required]
         public string PrimerApellido
         {
             get { return GetProperty(PrimerApellidoProperty); }
@@ -138,8 +140,8 @@ namespace JusNucleo.Bl.Personas
             DataPortal.Delete<PersonaNatural>(id);
         }
 
-        private PersonaNatural()
-        { /* Require use of factory methods */ }
+        //private PersonaNatural()
+        //{ /* Require use of factory methods */ }
 
         #endregion
 
