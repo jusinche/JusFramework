@@ -453,8 +453,11 @@
     <Content Include="bower_components\holderjs\test\.gitignore" />
     <Content Include="bower_components\holderjs\test\image.jpg" />
     <Content Include="bower_components\holderjs\test\index.html" />
+    <Content Include="bower_components\jquery\.bower.json" />
+    <Content Include="bower_components\jquery\bower.json" />
     <Content Include="bower_components\jquery\dist\jquery.js" />
     <Content Include="bower_components\jquery\dist\jquery.min.js" />
+    <Content Include="bower_components\jquery\dist\jquery.min.map" />
     <Content Include="bower_components\jquery\MIT-LICENSE.txt" />
     <Content Include="bower_components\jquery\src\ajax.js" />
     <Content Include="bower_components\jquery\src\ajax\jsonp.js" />
@@ -523,6 +526,7 @@
     <Content Include="bower_components\jquery\src\serialize.js" />
     <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.js" />
     <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.js" />
+    <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\jquery\src\traversing.js" />
     <Content Include="bower_components\jquery\src\traversing\findFilter.js" />
     <Content Include="bower_components\jquery\src\traversing\var\rneedsContext.js" />
@@ -623,6 +627,8 @@
     <Content Include="Recursos\Imagenes\bg-gray2.gif" />
     <Content Include="Recursos\Imagenes\close_icon.png" />
     <Content Include="Recursos\Imagenes\Logo.jpg" />
+    <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -884,10 +890,6 @@
     <Content Include="bower_components\holderjs\composer.json" />
     <Content Include="bower_components\holderjs\package.json" />
     <Content Include="bower_components\holderjs\README.md" />
-    <Content Include="bower_components\jquery\.bower.json" />
-    <Content Include="bower_components\jquery\bower.json" />
-    <Content Include="bower_components\jquery\dist\jquery.min.map" />
-    <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\metisMenu\.bower.json" />
     <Content Include="bower_components\metisMenu\bower.json" />
     <Content Include="bower_components\metisMenu\LICENSE" />
@@ -932,7 +934,21 @@
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\sb-admin-2.less" />
     <Content Include="Content\less\variables.less" />
+    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="Scripts\jquery.ui.datepicker-es.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -1031,15 +1047,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\flot-data.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\morris-data.js" />
     <Content Include="Scripts\respond.js" />
@@ -1062,7 +1070,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Home\FlotCharts.cshtml" />
     <Content Include="Views\Home\MorrisCharts.cshtml" />
@@ -1083,6 +1090,7 @@
     <Content Include="Views\PersonaNatural\Create.cshtml" />
     <Content Include="Views\PersonaNatural\Edit.cshtml" />
     <Content Include="Views\PersonaNatural\PersonaCorreo.cshtml" />
+    <Content Include="Views\Shared\MensajeValidaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

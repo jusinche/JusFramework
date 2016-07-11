@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web.Mvc;
 using JusFramework.Bl;
 
 namespace JusNucleo.Bl.Comun
@@ -40,17 +39,17 @@ namespace JusNucleo.Bl.Comun
             return lista.OrderBy(x=>x.Nombre).ToList();
         }
 
-        public List<SelectListItem> ListItems
-        {
-            get
-            {
-                return Items.Select(f => new SelectListItem
-                                              {
-                                                  Value = f.Id.ToString(),
-                                                  Text = f.Nombre
-                                              }).ToList();
-            }
-        }
+        //public List<SelectListItem> ListItems
+        //{
+        //    get
+        //    {
+        //        return Items.Select(f => new SelectListItem
+        //                                      {
+        //                                          Value = f.Id.ToString(),
+        //                                          Text = f.Nombre
+        //                                      }).ToList();
+        //    }
+        //}
     }
 
     [Serializable]

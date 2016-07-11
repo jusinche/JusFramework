@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Csla;
 using Csla.Core;
+using Csla.Core.FieldManager;
 using JusFramework.Dal;
 using JusFramework.Excepciones;
 using MethodInfo = System.Reflection.MethodInfo;
@@ -19,6 +24,7 @@ namespace JusFramework.Bl
         }
 
         private int _id;
+
         /// <summary>
         /// Identificador de la clase
         /// </summary>
@@ -27,15 +33,16 @@ namespace JusFramework.Bl
             get { return _id; }
             protected set { _id = value; }
         }
-        
+
         private int _version;
+
         /// <summary>
         /// Version del objeto, Numero de veces que ha sido modificado
         /// </summary>
         public int Version
         {
             get { return _version; }
-            protected set { _version= value; }
+            protected set { _version = value; }
         }
 
 
@@ -70,10 +77,9 @@ namespace JusFramework.Bl
 
 
 
-        [NonSerialized]
-        protected  DatabaseConection Db;
-        [NonSerialized]
-        protected  IDbCommand Comando;
+        [NonSerialized] protected DatabaseConection Db;
+        [NonSerialized] protected IDbCommand Comando;
+
         protected void DataPortal_Fetch(object criteria)
         {
             //crear la conexion a la base
@@ -85,10 +91,10 @@ namespace JusFramework.Bl
 
             //setear los parametros
             MethodInfo methodInfo = GetType().GetMethod(_nombreMetodo, BindingFlags.NonPublic | BindingFlags.Instance,
-                Type.DefaultBinder, new[] { criteria.GetType() }, null);
+                Type.DefaultBinder, new[] {criteria.GetType()}, null);
             if (methodInfo != null)
             {
-                methodInfo.Invoke(this, new [] { criteria });
+                methodInfo.Invoke(this, new[] {criteria});
             }
             else
             {
@@ -98,25 +104,26 @@ namespace JusFramework.Bl
                 }
                 else if (criteria is string)
                 {
-                    
+
                     Db.AddParameterWithValue(Comando, "ec_codigo", DbType.String, criteria);
                 }
                 else
                 {
-                    throw new JusException(String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
-                    _nombreMetodo, criteria.GetType()));
+                    throw new JusException(
+                        String.Format("No se implemento el metodo {0}, Ej: 'private void {0}({1} criteria)'",
+                            _nombreMetodo, criteria.GetType()));
                 }
             }
             Db.AddParameter(Comando, "sq_resultado", DbType.Object, ParameterDirection.Output);
             using (var dr = Db.ExecuteDataReader(Comando))
-                
+
                 while (dr.Read())
                 {
                     AddCommonData(dr);
                     Fetch(dr);
                     if (dr.NextResult())
                     {
-                        throw  new JusException("Existe mas de un resultado");
+                        throw new JusException("Existe mas de un resultado");
                     }
                 }
         }
@@ -138,23 +145,23 @@ namespace JusFramework.Bl
         /// </summary>
         protected virtual void AddInsertParameters()
         {
-            if (Parent!=null)
+            if (Parent != null)
             {
                 Db.AddParameterWithValue(Comando, "en_padre", DbType.Int32, GetParentId(Parent));
             }
-           
+
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
             Db.AddParameter(Comando, "sn_id", DbType.Int32, ParameterDirection.Output);
         }
 
-       
+
 
         private int GetParentId(IParent parent)
         {
             if (parent is BusinessBase)
             {
                 Object retval = parent.GetType().GetProperty("Id").GetValue(parent);
-                return (int)retval;
+                return (int) retval;
             }
             return GetParentId(parent.Parent);
         }
@@ -179,7 +186,7 @@ namespace JusFramework.Bl
             }
             Comando = Db.CreateSPCommand(InsertarSp);
 
-            
+
             AddCommonParameters();
             AddInsertParameters();
 
@@ -212,18 +219,18 @@ namespace JusFramework.Bl
         protected override void DataPortal_Update()
         {
             //crear la conexion a la base
-            if (Db ==null)
+            if (Db == null)
             {
-                Db = DatabaseFactory.CreateDatabase();   
+                Db = DatabaseFactory.CreateDatabase();
             }
-            
+
             Comando = Db.CreateSPCommand(ActualizarSp);
 
             AddCommonParameters();
             AddUpdateParameters();
 
             Db.ExecuteNonQuery(Comando);
-            
+
             int resultado;
             int.TryParse(Db.GetOutputParameterValue(Comando, "sn_reg_modificados").ToString(), out resultado);
 
@@ -236,20 +243,20 @@ namespace JusFramework.Bl
             FieldManager.UpdateChildren();
         }
 
-        protected override void DataPortal_DeleteSelf()
-        {
-            var hijos= this.FieldManager.GetChildren();
-            foreach (var child in hijos)
-            {
-                
-            }
-            FieldManager.UpdateChildren();
-            DataPortal_Delete(Id);
-        }
+        //protected override void DataPortal_DeleteSelf()
+        //{
+        //    var hijos= this.FieldManager.GetChildren();
+        //    foreach (var child in hijos)
+        //    {
+
+        //    }
+        //    FieldManager.UpdateChildren();
+        //    DataPortal_Delete(Id);
+        //}
 
         protected void DataPortal_Delete(int criteria)
         {
-            var hijos = this.FieldManager.GetChildren();
+            //var hijos = this.FieldManager.GetChildren();
 
             //crear la conexion a la base
             if (Db == null)
@@ -279,5 +286,41 @@ namespace JusFramework.Bl
 
 
         #endregion Data Access
+
+        public List<string> BrokenRulesList
+        {
+            get
+            {
+                return GetAllBrokenRules(this);
+            }
+        }
+
+
+        private static List<string> GetAllBrokenRules(object obj)
+        {
+            
+            var reglas = new List<string>();
+            var objBase = obj as BusinessBase;
+            if (objBase != null)
+            {
+                reglas.AddRange(objBase.BrokenRulesCollection.Select(brokenRule => brokenRule.Description));
+                var fielManager = (FieldDataManager)objBase.GetType().GetProperty("FieldManager", BindingFlags.NonPublic |BindingFlags.Instance).GetValue(objBase, null);
+                if (fielManager != null)
+                {
+                    foreach (var child in fielManager.GetChildren())
+                    {
+                        reglas.AddRange(GetAllBrokenRules(child));
+                    }
+                }
+            }
+            else if (obj is IEnumerable)
+            {
+                foreach (var child in (IEnumerable) obj)
+                {
+                    reglas.AddRange(GetAllBrokenRules(child));
+                }
+            }
+            return reglas;
+        }
     }
 }

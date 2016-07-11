@@ -130,6 +130,7 @@ namespace JusFramework.Bl
         protected abstract List<TCr> OrdenarList(List<TCr> lista);
 
 
+
         private string Getkey(object criteria)
         {
             if (criteria is ICacheable)

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using System.Web.Mvc;
+using JusNucleo.Bl.Personas;
 using JusUserFront.UI.ManejadorExcepciones;
 using JusNucleo.Bl.Sistema.Logeo;
 using Microsoft.Practices.ServiceLocation;
@@ -7,7 +9,7 @@ using Microsoft.Practices.ServiceLocation;
 namespace JusUserFront.UI.BaseUI
 {
     [HandleError]
-    public class JusControllerBase : Csla.Web.Mvc.Controller, Csla.Web.Mvc.IModelCreator
+    public abstract class JusControllerBase : Csla.Web.Mvc.Controller, Csla.Web.Mvc.IModelCreator
     {
 
         /*[SetterProperty]
@@ -101,10 +103,21 @@ namespace JusUserFront.UI.BaseUI
         public object CreateModel(Type modelType)
         {
             //throw new NotImplementedException();
-            
-            return null;
+            //modelType.GetMethod("New",BindingFlags.Public | BindingFlags.Static).Invoke(null,null);
+            var obj = modelType.GetMethod("New",
+                BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public);
+            if (obj!=null)
+            {
+               return obj.Invoke(null, null);
+            }
+            return Activator.CreateInstance(modelType);
         }
 
-        
+        protected override IActionInvoker CreateActionInvoker()
+        {
+            var x = base.CreateActionInvoker();
+            return x;
+        }
+       
     }
 }

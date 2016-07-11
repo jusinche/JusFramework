@@ -10,8 +10,7 @@
     </td>
     <td>
         <div class="text-center">
-            @Html.TextBoxFor(x => Model.Correo, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Correo, String.Empty, new { @style = "color:red" })
+            @Html.TextBoxFor(x => Model.Correo, new { @class = "form-control", required=true @*, type= "email"*@})
         </div>
     </td>
 </tr>

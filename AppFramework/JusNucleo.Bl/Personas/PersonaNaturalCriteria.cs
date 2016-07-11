@@ -10,6 +10,9 @@ namespace JusNucleo.Bl.Personas
     {
         #region Business Methods
 
+        private PersonaNaturalCriteria()
+        {
+        }
 
         public static readonly PropertyInfo<string> IdentificacionProperty =
             RegisterProperty<string>(p => p.Identificacion);

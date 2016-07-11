@@ -7,6 +7,8 @@
     PROCEDURE PRC_CORREO_DEL(en_id number,en_version number, ec_usuario varchar2, sn_reg_modificados out number);
     --Obtiene un lista de correos persona por su id (en_padre)
     PROCEDURE PRC_CORREO_OBT(en_padre number,sq_resultado out sys_refcursor);
+    --Verifica si un correo esta utilizado por otra persona
+    PROCEDURE PRC_CORREO_CANT(en_id number, ec_valor varchar2, sn_cant out number, sc_mensaje out varchar2);
  END PKG_NEG_CORREO;
 
 CREATE OR REPLACE PACKAGE BODY PKG_NEG_CORREO AS
@@ -37,12 +39,25 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_CORREO AS
          sn_reg_modificados := SQL%ROWCOUNT;  
     END PRC_CORREO_DEL;
     --Obtiene un lista de correos persona por su id (en_padre)
-    PROCEDURE PRC_CORREO_OBT(en_padre number,sq_resultado out sys_refcursor) IS
+   PROCEDURE PRC_CORREO_OBT(en_padre number,sq_resultado out sys_refcursor) IS
     BEGIN
         OPEN sq_resultado FOR
         SELECT PER_ID, COR_VERSION n_version, COR_USUARIO_MOD,    COR_ID n_id, COR_FECHA_MOD, COR_CORREO
             FROM TNEG_CORREO cor where  cor.per_id=en_padre;        
-    END PRC_CORREO_OBT;    
+    END PRC_CORREO_OBT;
+    --Verifica si un correo esta utilizado por otra persona
+    PROCEDURE PRC_CORREO_CANT(en_id number, ec_valor varchar2, sn_cant out number, sc_mensaje out varchar2) IS
+    BEGIN       
+        SELECT count(*) into sn_cant
+            FROM TNEG_CORREO cor where  cor.cor_id<>en_id and cor.COR_CORREO=ec_valor;
+       IF   sn_cant<>0 THEN
+        SELECT 'El correo electrónico ['||ec_valor|| '] ya se encuentra asignado a '|| per.per_nombre   into sc_mensaje
+            FROM TNEG_CORREO cor, tneg_persona per where per.per_id=cor.per_id and cor.cor_id<>en_id and cor.COR_CORREO=ec_valor;
+       else
+       sc_mensaje:='';
+       end if;
+       
+    END PRC_CORREO_CANT;
 END PKG_NEG_CORREO;
 
 

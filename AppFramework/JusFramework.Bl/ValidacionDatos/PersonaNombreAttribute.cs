@@ -12,24 +12,33 @@ namespace JusFramework.Bl.ValidacionDatos
         public PersonaNombreAttribute()
             : base(@"[A-Z]+[A-Z\s]*[A-Z]+")
          {
-             this.ErrorMessage = "INGRESE UN NOMBRE VALIDO";
-            
+             ErrorMessage = "El campo {0} no es correcto, verifique los datos.";
          }
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            try
+                validationContext.ObjectType.GetProperty(GetPropertyName(validationContext))
+                    .SetValue(validationContext.ObjectInstance, value.ToString().Trim().ToUpper(), null);
+            return base.IsValid(value, validationContext);
+        }
+
+        private string GetPropertyName(ValidationContext validationContext)
+        {
+            var property = validationContext.DisplayName;
+            foreach (var propertyInfo in validationContext.ObjectType.GetProperties())
             {
-                if (value != null && value.ToString() != string.Empty)
+                foreach (var customAttributeData in propertyInfo.CustomAttributes)
                 {
-                    validationContext.ObjectType.GetProperty(validationContext.DisplayName)
-                       .SetValue(validationContext.ObjectInstance, value.ToString().ToUpper(), null);
+                    if (customAttributeData.AttributeType == typeof(DisplayAttribute))
+                    {
+                        if (customAttributeData.NamedArguments != null && customAttributeData.NamedArguments.First().TypedValue.Value.ToString() == validationContext.DisplayName)
+                        {
+                            return propertyInfo.Name;
+                        }
+                    }
                 }
             }
-            catch (Exception)
-            {
-            }
-            
-            return null;
+            return property;
         }
     }
 }

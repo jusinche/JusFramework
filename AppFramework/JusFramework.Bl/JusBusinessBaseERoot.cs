@@ -51,5 +51,12 @@ namespace JusFramework.Bl
             }
             _cache.Clear(typeof(T).ToString());
         }
+
+        public static void Delete(int id)
+        {
+            DataPortal.Delete<T>(id);
+        }
+
+       
     }
 }

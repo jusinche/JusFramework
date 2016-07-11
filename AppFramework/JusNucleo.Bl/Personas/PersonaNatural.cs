@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Csla;
+using Csla.Core;
 using JusFramework.Bl;
 using JusFramework.Bl.ValidacionDatos;
 using JusNucleo.Bl.Comun;
@@ -14,7 +16,8 @@ namespace JusNucleo.Bl.Personas
         #region Business Methods
 
         public static readonly PropertyInfo<int> TipoIdentificacionProperty = RegisterProperty<int>(p => p.TipoIdentificacion);
-        [Required]
+        [CampoObligatorio]
+        [Display(Name = "Tipo Identificación")]
         public int TipoIdentificacion
         {
             get { return GetProperty(TipoIdentificacionProperty); }
@@ -22,7 +25,8 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> IdenticacionProperty = RegisterProperty<string>(p => p.Identificacion);
-        [Required]
+        [CampoObligatorio]
+        [Display(Name = "Identificación")]
         public string Identificacion
         {
             get { return GetProperty(IdenticacionProperty); }
@@ -30,8 +34,10 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<string> PrimerNombreProperty = RegisterProperty<string>(p => p.PrimerNombre);
-        [Required]
+        [CampoObligatorio]
         [PersonaNombre]
+        [Display(Name = "Primer Nombre")]
+        //[Mayusculas]
         public string PrimerNombre
         {
             get { return GetProperty(PrimerNombreProperty); }
@@ -40,6 +46,8 @@ namespace JusNucleo.Bl.Personas
 
         public static readonly PropertyInfo<string> SegundoNombreProperty = RegisterProperty<string>(p => p.SegundoNombre);
         [PersonaNombre]
+        //[Mayusculas]
+        [Display(Name = "Segundo Nombre")]
         public string SegundoNombre
         {
             get { return GetProperty(SegundoNombreProperty); }
@@ -48,8 +56,9 @@ namespace JusNucleo.Bl.Personas
 
         public static readonly PropertyInfo<string> PrimerApellidoProperty = RegisterProperty<string>(p => p.PrimerApellido);
         [PersonaNombre]
-        [Display(Name = "PRIMER APELLIDO")]
-        [Required]
+        //[Mayusculas]
+        [Display(Name = "Primer Apellido")]
+        [CampoObligatorio]
         public string PrimerApellido
         {
             get { return GetProperty(PrimerApellidoProperty); }
@@ -58,6 +67,8 @@ namespace JusNucleo.Bl.Personas
 
         public static readonly PropertyInfo<string> SegundoApellidoProperty = RegisterProperty<string>(p => p.SegundoApellido);
          [PersonaNombre]
+         //[Mayusculas]
+         [Display(Name = "Segundo Apellido")]
         public string SegundoApellido
         {
             get { return GetProperty(SegundoApellidoProperty); }
@@ -66,7 +77,10 @@ namespace JusNucleo.Bl.Personas
 
 
         public static readonly PropertyInfo<DateTime> FechaNacimientoProperty = RegisterProperty<DateTime>(p => p.FechaNacimiento);
-        [Required]
+        [CampoObligatorio]
+        [Display(Name = "Fecha Nacimiento")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime FechaNacimiento
         {
             get { return GetProperty(FechaNacimientoProperty); }
@@ -74,7 +88,8 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<int> GeneroProperty = RegisterProperty<int>(p => p.Genero);
-        [Required]
+        [CampoObligatorio]
+        [Display(Name = "Género")]
         public int Genero
         {
             get { return GetProperty(GeneroProperty); }
@@ -82,7 +97,8 @@ namespace JusNucleo.Bl.Personas
         }
 
         public static readonly PropertyInfo<int> EstadoCivilProperty = RegisterProperty<int>(p => p.EstadoCivil);
-        [Required]
+        [CampoObligatorio]
+        [Display(Name = "Estado Civil")]
         public int EstadoCivil
         {
             get { return GetProperty(EstadoCivilProperty); }
@@ -133,12 +149,11 @@ namespace JusNucleo.Bl.Personas
 
         #region Factory Methods
 
+         private PersonaNatural()
+        { /* require use of factory methods */ }
         
 
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<PersonaNatural>(id);
-        }
+       
 
         //private PersonaNatural()
         //{ /* Require use of factory methods */ }
@@ -220,5 +235,7 @@ namespace JusNucleo.Bl.Personas
         
 
         #endregion
+
+        
     }
 }

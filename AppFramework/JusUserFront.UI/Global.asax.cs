@@ -2,10 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.WebPages;
 using JusFramework.InyeccionDependencia;
-using JusUserFront.UI;
-using Microsoft.Ajax.Utilities;
 
 namespace JusUserFront.UI
 {
@@ -19,6 +16,7 @@ namespace JusUserFront.UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RegisterDependency.Init();
+            ModelBinders.Binders.DefaultBinder = new Csla.Web.Mvc.CslaModelBinder();
         }
 
         protected void Session_Start(object sender, EventArgs e)

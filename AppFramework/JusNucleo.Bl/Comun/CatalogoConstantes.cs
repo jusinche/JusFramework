@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.IdentityModel.Metadata;
-
+﻿
 namespace JusNucleo.Bl.Comun
 {
     public class CatalogoConstantes

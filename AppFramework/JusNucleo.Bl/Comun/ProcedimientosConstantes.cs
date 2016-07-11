@@ -27,6 +27,7 @@
         public const string PrcCorreoAct = PkgCorreo + "PRC_CORREO_ACT";
         public const string PrcCorreoObt = PkgCorreo + "PRC_CORREO_OBT";
         public const string PrcCorreoDel = PkgCorreo + "PRC_CORREO_DEL";
+        public const string PrcCorreoCant = PkgCorreo + "PRC_CORREO_CANT";
 
         #region Catalogo 
 

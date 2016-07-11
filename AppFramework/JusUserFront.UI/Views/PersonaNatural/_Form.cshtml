@@ -1,30 +1,30 @@
 ﻿@using JusNucleo.Bl.Comun
 @using JusNucleo.Bl.Personas
 @model PersonaNatural
-@{
-    Layout = "~/Views/Shared/SubLayout.cshtml";
-}
 <div class="panel panel-default">
     <div class="panel-heading">PERSONA</div>
     <div class="panel-body">
+        @if (Model != null)
+        {
+             @Html.Partial("MensajeValidaciones", Model.BrokenRulesList)
+        }
         <div class="row">
+
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-lg-6">
                         @Html.HiddenFor(model => Model.Id)
                         @Html.HiddenFor(m => Model.Version)
                         <div class="form-group">
-                            <label>TIPO IDENTIFICACIÓN</label>
-                            @Html.DropDownListFor(x => x.TipoIdentificacion, CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo).ListItems, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.TipoIdentificacion, String.Empty, new { @style = "color:red" })
+                            @Html.LabelFor(x => x.TipoIdentificacion)
+                            @Html.DropDownListFor(x => x.TipoIdentificacion, new SelectList(CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo), "Id", "Nombre"), new {@class = "form-control"})
                         </div>
                     </div>
                     <div class="col-lg-6">
 
                         <div class="form-group">
-                            <label>IDENTIFICACIÓN</label>
+                            @Html.LabelFor(x => x.Identificacion)
                             @Html.TextBoxFor(x => x.Identificacion, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.Identificacion, String.Empty, new { @style = "color:red" })
                         </div>
                     </div>
                 </div>
@@ -32,56 +32,49 @@
                     <div class="col-lg-6">
                         <div class="form-group has-">
                             @Html.LabelFor(x => x.PrimerApellido)
-                            @Html.TextBoxFor(x => x.PrimerApellido, new { @class = "form-control", style = "text-transform:uppercase;" })
-                            @Html.ValidationMessageFor(m => m.PrimerApellido, String.Empty, new { @style = "color:red" })
+                            @Html.TextBoxFor(x => x.PrimerApellido, new {@class = "form-control", style = "text-transform:uppercase;"})
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>SEGUNDO APELLIDO</label>
-                            @Html.TextBoxFor(x => x.SegundoApellido, new { @class = "form-control", style = "text-transform:uppercase;" })
-                            @Html.ValidationMessageFor(m => m.SegundoApellido, String.Empty, new { @style = "color:red" })
+                            @Html.LabelFor(x => x.SegundoApellido)
+                            @Html.TextBoxFor(x => x.SegundoApellido, new {@class = "form-control", style = "text-transform:uppercase;"})
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>PRIMER NOMBRE</label>
-                            @Html.TextBoxFor(x => x.PrimerNombre, new {@class = "form-control", style = "text-transform:uppercase;" })
-                            @Html.ValidationMessageFor(m => m.PrimerNombre, String.Empty, new { @style = "color:red" })
+                            @Html.LabelFor(x => x.PrimerNombre)
+                            @Html.TextBoxFor(x => x.PrimerNombre, new {@class = "form-control", style = "text-transform:uppercase;"})
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>SEGUNDO NOMBRE</label>
+                            @Html.LabelFor(x => x.SegundoNombre)
                             @Html.TextBoxFor(x => x.SegundoNombre, new {@class = "form-control", style = "text-transform:uppercase;"})
-                            @Html.ValidationMessageFor(m => m.SegundoNombre, String.Empty, new { @style = "color:red" })
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>GENERO</label>
-                            @Html.DropDownListFor(x => x.Genero, CatalogoItemList.Get(CatalogoConstantes.CatGenero).ListItems, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.Genero, String.Empty, new { @style = "color:red" })
+                            @Html.LabelFor(x => x.Genero)
+                            @Html.DropDownListFor(x => x.Genero, new SelectList(CatalogoItemList.Get(CatalogoConstantes.CatGenero), "Id", "Nombre"), new {@class = "form-control"})
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>ESTADO CIVIL</label>
-                            @Html.DropDownListFor(x => x.EstadoCivil, CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil).ListItems, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.EstadoCivil, String.Empty, new { @style = "color:red" })
+                            @Html.LabelFor(x => x.EstadoCivil)
+                            @Html.DropDownListFor(x => x.EstadoCivil, new SelectList(CatalogoItemList.Get(CatalogoConstantes.CatEstadoCivil), "Id", "Nombre"), new {@class = "form-control"})
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>FECHA NACIMIENTO</label>
+                            @Html.LabelFor(x => x.FechaNacimiento)
                             @Html.TextBoxFor(x => x.FechaNacimiento, new {@class = "form-control"})
-                            @Html.ValidationMessageFor(m => m.FechaNacimiento, String.Empty, new { @style = "color:red" })
                         </div>
                     </div>
                 </div>
@@ -94,40 +87,21 @@
                             <div class="panel-heading">
                                 CORREOS
                                 <div class="pull-right">
-                                    <input value="Agregar" type="button" class="btn btn-default btn-xs dropdown-toggle" onclick="AddCorreo();" />
-                                    @*<div id="AddCorreo" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color: #f5f5f5;border-top-left-radius:4px;border-top-right-radius:3px; ">
-                                    AGREGAR CORREO
-                                    <button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label>Correo Electronico</label>
-                                                @Html.TextBoxFor(x => x.Correos.NewChild().Correo, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary" type="button">Agregar Correo</button>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>*@
+                                    <input value="Agregar" type="button" class="btn btn-default btn-xs dropdown-toggle" onclick="AddCorreo();"/>
                                 </div>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table id="TabCorreos" class="table table-striped table-bordered table-hover">
                                         <tbody>
-                                            @foreach (var correo in Model.Correos)
+                                        @if (Model != null)
+                                        {
+                                            foreach (var correo in Model.Correos)
                                             {
                                                 @Html.Partial("PersonaCorreo", correo)
                                             }
+                                        }
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -149,7 +123,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#FechaNacimiento').datepicker({ viewMode: 'years' });
+    $('#FechaNacimiento').datepicker({ viewMode: 'years', dateFormat: "yyyy-mm-dd" });
 </script>
 <script>
     function AddCorreo() {

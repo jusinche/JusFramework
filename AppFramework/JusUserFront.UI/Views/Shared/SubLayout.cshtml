@@ -9,21 +9,28 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!-- DataTables CSS -->
-    <link href="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")" rel="stylesheet" type="text/css"/>
     <!-- DataTables Responsive CSS -->
-    <link href="@Url.Content("~/bower_components/datatables-responsive/css/dataTables.responsive.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bower_components/datatables-responsive/css/dataTables.responsive.css")" rel="stylesheet" type="text/css"/>
 
-    <link href="@Url.Content("~/bower_components/morrisjs/morris.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bower_components/morrisjs/morris.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css"/>
     <!-- jQuery -->
     @Scripts.Render("~/bundles/jquery")
     <script src="@Url.Content("~/bower_components/jquery/dist/jquery.min.js")"></script>
     @Scripts.Render("~/bundles/bootstrap")
     <script src="@Url.Content("~/bower_components/metisMenu/dist/metisMenu.min.js")"></script>
 
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
-    <script src="~/Scripts/_jusFrontApp.js"></script>
+    <script src="@Url.Content("~/Scripts/_jusFrontApp.js")"></script>
+
+   
 
     @*<script type="text/javascript">
         $(function ($) {
@@ -48,9 +55,19 @@
         });
     </script>*@
 
-    <title></title>
+
     @Scripts.Render("~/Scripts/sb-admin-2.js")
     @RenderSection("scripts", required: false)
+    <script>
+        function validarFormulario(frm) {
+            //return false;
+            if (frm.valid()) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+    <title>Junior Framework</title>
 </head>
 <body>
 @if (Request.IsAuthenticated)
@@ -74,3 +91,4 @@ else
 <script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
 </body>
 </html>
+

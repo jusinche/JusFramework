@@ -26,11 +26,24 @@ namespace JusUserFront.UI
                       "~/bower_components/bootstrap/dist/css/bootstrap.min.css",
                       "~/bower_components/metisMenu/dist/metisMenu.min.css",
                       "~/Content/timeline.css",
-                      "~/Content/sb-admin-2.css").Include("~/Scripts/jquery.ui.datepicker-es.js")
+                      "~/Content/sb-admin-2.css")
                       .Include("~/Content/bootstrap-datepicker*")
                       );
+            bundles.Add(new ScriptBundle(("~/Scripts/_jusFrontApp.js"))
+                .Include("~/Scripts/jquery.ui.datepicker-es.js")
+                      );
 
-            bundles.Add(new ScriptBundle(("~/Scripts/_jusFrontApp.js")));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+               "~/Scripts/jquery-{version}.min.js",
+               "~/Scripts/jquery-ui-3.0.0.min.js",
+               "~/Scripts/jquery.base64.js"
+               ));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate.min.js",
+                        "~/Scripts/jquery.validate.unobtrusive.min.js"
+                        ));
+            
         }
     }
 }

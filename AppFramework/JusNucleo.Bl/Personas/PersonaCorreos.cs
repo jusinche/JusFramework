@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Csla;
 using JusFramework.Bl;
+using JusFramework.Bl.Rules;
 using JusFramework.Bl.ValidacionDatos;
 using JusNucleo.Bl.Comun;
 
@@ -13,9 +14,9 @@ namespace JusNucleo.Bl.Personas
     public class PersonaCorreos : JusBusinessListBase<PersonaCorreos, PersonaCorreo>
     {
         #region Factory Methods
-       
 
-        //private PersonaCorreos(){ }
+
+        private PersonaCorreos() { }
 
         #endregion
 
@@ -47,8 +48,10 @@ namespace JusNucleo.Bl.Personas
 
         // example with managed backing field
         public static readonly PropertyInfo<string> CorreoProperty = RegisterProperty<string>(p => p.Correo);
-        [Required]
+        [CampoObligatorio]
         [Email]
+        [Display(Name = "Correo Eletrónico")]
+        [DataType(DataType.EmailAddress)]
         public string Correo
         {
             get { return GetProperty(CorreoProperty); }
@@ -59,23 +62,42 @@ namespace JusNucleo.Bl.Personas
 
         #region Business Rules
 
-      
+        protected override void AddBusinessRules()
+        {
+            // TODO: add validation rules
+            base.AddBusinessRules();
+
+            BusinessRules.AddRule(new ValidateRule<PersonaCorreo>(CorreoUnicoValidate,CorreoProperty));
+
+            //this.BusinessRules.AddRule<PersonaCorreo>(VerificarDuplicadoSolicitudPorProgramaAcademico, CorreoProperty);
+            //ValidateRule ..AddDependentProperty(ProgramaAcademicoIdProperty, EstudianteIdProperty);
+        }
+
+        private RuleContextArg CorreoUnicoValidate(PersonaCorreo target)
+        {
+            var rule=new RuleContextArg();
+            if (string.IsNullOrEmpty(target.Correo))
+            {
+                rule.IsValid = true;
+                return rule;
+            }
+            rule.Description=CodigoDuplicadoCmd.Execute(target.CorreoId, target.Correo, ProcedimientosConstantes.PrcCorreoCant);
+            rule.IsValid = false;
+            if (string.IsNullOrEmpty(rule.Description))
+            {
+                rule.IsValid = true;
+            }
+            return rule;
+        }
+
         #endregion
 
         #region Factory Methods
 
-        //internal static PersonaCorreo NewEditableChild()
-        //{
-        //    return DataPortal.CreateChild<PersonaCorreo>();
-        //}
+    
 
-        //internal static PersonaCorreo GetEditableChild(object childData)
-        //{
-        //    return DataPortal.FetchChild<PersonaCorreo>(childData);
-        //}
-
-        //private PersonaCorreo()
-        //{ /* Require use of factory methods */ }
+        private PersonaCorreo()
+        { /* Require use of factory methods */ }
 
         #endregion
 

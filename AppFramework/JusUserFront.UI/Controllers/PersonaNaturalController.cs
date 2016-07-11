@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using JusNucleo.Bl.Personas;
 using JusUserFront.UI.BaseUI;
@@ -26,13 +25,19 @@ namespace JusUserFront.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PersonaNatural persona,FormCollection collection, List<PersonaCorreo> correos1 )
+        [Csla.Web.Mvc.HasPermission(Csla.Rules.AuthorizationActions.CreateObject, typeof(PersonaNatural))]
+        public ActionResult Create(PersonaNatural persona,FormCollection collection)
         {
-            var correos = (collection["correo"]).Split(',');
+            var correosList = collection["correo"];
+            if (correosList == null)
+            {
+                return View(persona);
+            }
+            var correos = correosList.Split(',');
             var isErasers = collection["isEraser"].Split(',');
             for (int i=0; i< correos.Length;i++)
             {
-                if (!Boolean.Parse(isErasers[i]))
+                if (!Boolean.Parse(isErasers[i]) && correos[i]!=string.Empty)
                 {
                     var mail = PersonaCorreo.New();
                     mail.Correo = correos[i];
@@ -40,25 +45,26 @@ namespace JusUserFront.UI.Controllers
                 }
             }
 
-            
-
-            if (ModelState.IsValid)
+            if (persona.IsValid)
             {
-                persona.Save();
-                return View(PersonaNatural.New());
+                if (SaveObject(persona, false))
+                {
+                    return View();
+                }
+                
             }
             return View(persona);
         }
 
         public ActionResult Create()
         {
-            return View(PersonaNatural.New());
+            return View();
         }
 
         public ActionResult Edit(int personaId)
         {
-            PersonaNatural.Get(personaId);
-            return View(PersonaNatural.Get(personaId));
+            ViewData.Model=PersonaNatural.Get(personaId);
+            return View();
         }
 
         public ActionResult CrearCorreo()
