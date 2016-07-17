@@ -36,7 +36,7 @@ namespace JusFramework.test.Seguridad
 
             var user= usuario.Save();
             Assert.AreEqual(false, user == null);
-            Assert.AreEqual(true, usuario.Accesos == user.Accesos);
+            Assert.AreEqual(true, user != null && usuario.Accesos == user.Accesos);
         }
 
 

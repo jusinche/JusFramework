@@ -22,6 +22,7 @@ namespace JusFramework.Bl
         {
             get { return 20; }
         }
+        
 
         public int TotalPaginas
         {
@@ -116,7 +117,7 @@ namespace JusFramework.Bl
                 {
                     return String.Empty;
                 }
-                return String.Format("REGISTRO {0} HASTA {1} DE {2}", Desde, Hasta, _lista.Count);
+                return String.Format("REGISTRO {0} HASTA {1} DE {2}", Desde, Hasta, _lista.TotalRegistros);
             }
         }
 

@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Csla;
-using Csla.Core;
+using JusFramework.Algorithms;
 using JusFramework.Bl;
+using JusFramework.Bl.Rules;
 using JusFramework.Bl.ValidacionDatos;
 using JusNucleo.Bl.Comun;
 
@@ -112,22 +112,26 @@ namespace JusNucleo.Bl.Personas
 
 
 
-        private static PropertyInfo<PersonaCorreos> RequisitosProperty = RegisterProperty<PersonaCorreos>(o => o.Correos);
+        private static PropertyInfo<PersonaCorreos> CorreosProperty = RegisterProperty<PersonaCorreos>(o => o.Correos);
         /// <summary>
         /// Lista de los Elementos de Asignacion para la beca
         /// </summary>
+        [Display(Name="Correos Electrónicos")]
         public PersonaCorreos Correos
         {
             get
             {
-                if (!(FieldManager.FieldExists(RequisitosProperty)))
+                if (!(FieldManager.FieldExists(CorreosProperty)))
+                //if (GetProperty(CorreosProperty) == null)
+                {
                     if (IsNew)
-                        LoadProperty(RequisitosProperty,
+                        LoadProperty(CorreosProperty,
                                      PersonaCorreos.New());
                     else
-                        LoadProperty(RequisitosProperty,
+                        LoadProperty(CorreosProperty,
                                      PersonaCorreos.Get(Id));
-                return GetProperty(RequisitosProperty);
+                }
+                return GetProperty(CorreosProperty);
             }
         }
         #endregion
@@ -136,14 +140,66 @@ namespace JusNucleo.Bl.Personas
 
         protected override void AddBusinessRules()
         {
-            // TODO: add validation rules
-            base.AddBusinessRules();
-
-            //BusinessRules.AddRule(new Rule(IdProperty));
-           Console.Out.WriteLine("hola mundo");
+           base.AddBusinessRules();
+           //Regla para verificar q la lista de correo no esta vacia
+           BusinessRules.AddRule(new ListaConElementosRule(CorreosProperty));
+           BusinessRules.AddRule(new ValidateRule<PersonaNatural>(VerificarIdentificacion, IdenticacionProperty,TipoIdentificacionProperty));
+           BusinessRules.AddRule(new ValidateRule<PersonaNatural>(IdentificacionDuplicada, IdenticacionProperty));
         }
 
-       
+        private bool IdentificacionDuplicada(PersonaNatural obj, RuleContextArg args)
+        {
+            if (string.IsNullOrEmpty(obj.Identificacion))
+            {
+                return true;
+            }
+            string msj;
+            if (CodigoDuplicadoCmd.Exists(obj.Id, obj.Identificacion, ProcedimientosConstantes.PrcCorreoCant, out msj))
+            {
+                return true;
+            }
+            args.Description = msj;
+            return false;
+        }
+
+        private bool VerificarIdentificacion(PersonaNatural obj, RuleContextArg args)
+        {
+            args.Description = "Número de Identificación es Invalido";
+            if (obj.TipoIdentificacion==0)
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(obj.Identificacion))
+            {
+                return true;
+            }
+            var tipos = CatalogoItemList.Get(CatalogoConstantes.CatIdentificacionTipo);
+            var cedula = tipos.GetItem(CatalogoConstantes.IdentificacionCedula);
+            if (obj.TipoIdentificacion==cedula.Id)
+            {
+                return IdentificacionValidation.VerificarCedula(obj.Identificacion);
+            }
+            var ruc = tipos.GetItem(CatalogoConstantes.IdentificacionRuc);
+            if (obj.TipoIdentificacion == ruc.Id)
+            {
+                return IdentificacionValidation.VerificarRuc(obj.Identificacion);
+            }
+            return true;
+        }
+
+
+        protected override void OnChildChanged(Csla.Core.ChildChangedEventArgs e)
+        {
+            base.OnChildChanged(e);
+            if (e.ChildObject is PersonaCorreos)
+            {
+                //Recheck our rules.
+                BusinessRules.CheckRules(CorreosProperty);
+                //OnPropertyChanged(CorreosProperty);
+            }
+           
+
+        }
 
         #endregion
 

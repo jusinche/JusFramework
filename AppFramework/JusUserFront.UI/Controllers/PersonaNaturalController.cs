@@ -44,7 +44,7 @@ namespace JusUserFront.UI.Controllers
                     persona.Correos.Add(mail);
                 }
             }
-
+            
             if (persona.IsValid)
             {
                 if (SaveObject(persona, false))
@@ -69,8 +69,7 @@ namespace JusUserFront.UI.Controllers
 
         public ActionResult CrearCorreo()
         {
-            var correo = PersonaCorreo.New();
-            return View("PersonaCorreo",correo);
+            return View("PersonaCorreo");
         }
 
         [HttpPost]

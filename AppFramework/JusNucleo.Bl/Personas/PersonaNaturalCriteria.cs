@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using Csla;
 using JusFramework.Bl;
+using JusFramework.Bl.ValidacionDatos;
 using JusFramework.Cache;
 
 namespace JusNucleo.Bl.Personas
@@ -17,6 +19,7 @@ namespace JusNucleo.Bl.Personas
         public static readonly PropertyInfo<string> IdentificacionProperty =
             RegisterProperty<string>(p => p.Identificacion);
 
+        [DisplayName("Identificación")]
         public string Identificacion
         {
             get { return GetProperty(IdentificacionProperty).ToUpper(); }
@@ -25,6 +28,8 @@ namespace JusNucleo.Bl.Personas
 
         public static readonly PropertyInfo<string> PrimerNombreProperty = RegisterProperty<string>(p => p.PrimerNombre);
 
+        [PersonaNombre]
+        [DisplayName("Primer Nombre")]
         public string PrimerNombre
         {
             get { return GetProperty(PrimerNombreProperty).ToUpper(); }
@@ -34,15 +39,20 @@ namespace JusNucleo.Bl.Personas
         public static readonly PropertyInfo<string> SegundoNombreProperty =
             RegisterProperty<string>(p => p.SegundoNombre);
 
+        [PersonaNombre]
+        [DisplayName("Segundo Nombre")]
         public string SegundoNombre
         {
             get { return GetProperty(SegundoNombreProperty).ToUpper(); }
             set { SetProperty(SegundoNombreProperty, value); }
         }
 
+
         public static readonly PropertyInfo<string> PrimerApellidoProperty =
             RegisterProperty<string>(p => p.PrimerApellido);
 
+        [PersonaNombre]
+        [DisplayName("Primer Apellido")]
         public string PrimerApellido
         {
             get { return GetProperty(PrimerApellidoProperty).ToUpper(); }
@@ -52,6 +62,8 @@ namespace JusNucleo.Bl.Personas
         public static readonly PropertyInfo<string> SegundoApellidoProperty =
             RegisterProperty<string>(p => p.SegundoApellido);
 
+        [PersonaNombre]
+        [DisplayName("Segundo Apellido")]
         public string SegundoApellido
         {
             get { return GetProperty(SegundoApellidoProperty).ToUpper(); }

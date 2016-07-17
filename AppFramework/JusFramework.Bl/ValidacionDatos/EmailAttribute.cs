@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JusFramework.Bl.ValidacionDatos
 {
-    public class EmailAttribute : RegularExpressionAttribute
+    [Serializable]
+    public class EmailAttribute : ValidationBaseAttribute
     {
          public EmailAttribute()
-             :base(@"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
+            : base(ConstantesValidaciones.NombrePersonaReg)
 
          {
-             this.ErrorMessage = "INGRESE UNA DIRECCIÓN DE CORREO ELECTRÓNICA VALIDA";
+             ErrorMessage = "Ingrese una dirección de correo electrónica valida.";
          }
     }
 }

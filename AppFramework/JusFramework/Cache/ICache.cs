@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace JusFramework.Cache
 {
@@ -47,7 +46,7 @@ namespace JusFramework.Cache
         /// <param name="key"></param>
         /// <param name="group"></param>
         /// <returns></returns>
-        Object GetData(string key, string group = null);
+        object GetData(string key, string group = null);
 
         /// <summary>
         /// Obtiene el total de items que se encuentran cacheados

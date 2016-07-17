@@ -73,21 +73,20 @@ namespace JusNucleo.Bl.Personas
             //ValidateRule ..AddDependentProperty(ProgramaAcademicoIdProperty, EstudianteIdProperty);
         }
 
-        private RuleContextArg CorreoUnicoValidate(PersonaCorreo target)
+
+        private bool CorreoUnicoValidate(PersonaCorreo obj, RuleContextArg args)
         {
-            var rule=new RuleContextArg();
-            if (string.IsNullOrEmpty(target.Correo))
+            if (string.IsNullOrEmpty(obj.Correo))
             {
-                rule.IsValid = true;
-                return rule;
+                return true;
             }
-            rule.Description=CodigoDuplicadoCmd.Execute(target.CorreoId, target.Correo, ProcedimientosConstantes.PrcCorreoCant);
-            rule.IsValid = false;
-            if (string.IsNullOrEmpty(rule.Description))
+            string msj;
+            if (CodigoDuplicadoCmd.Exists(obj.CorreoId, obj.Correo, ProcedimientosConstantes.PrcCorreoCant,out msj))
             {
-                rule.IsValid = true;
+                return  true;
             }
-            return rule;
+            args.Description = msj;
+            return false;
         }
 
         #endregion

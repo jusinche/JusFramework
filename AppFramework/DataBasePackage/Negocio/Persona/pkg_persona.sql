@@ -77,7 +77,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
     BEGIN
         SELECT count(*) into sn_total_registros
                     FROM TNEG_PERSONA_NATURAL PER, TNEG_PERSONA per1, tadm_item_catalogo tipo_id, tadm_item_catalogo genero, tadm_item_catalogo estado_civil
-                    WHERE per.per_id=per1.per_id and per1.per_tipo_identificacion=tipo_id.ite_id and per.per_genero=GENERO.ITE_ID and per.per_estado_civil=estado_civil.ite_id
+                    WHERE per.per_id=per1.per_id and per1.per_tipo_identificacion=tipo_id.ite_id  and per.per_genero=GENERO.ITE_ID  and per.per_estado_civil=estado_civil.ite_id
                     and (ec_identificacion is null or per1.per_identificacion like '%'||ec_identificacion||'%'
                      or per.per_id in (select ide.per_id from tneg_identificacion ide where ide.ide_numero like '%'||ec_identificacion||'%'))
                     and (ec_primer_nombre is null or per.per_primer_nombre like '%'||ec_primer_nombre||'%')
@@ -97,6 +97,25 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_PERSONA AS
                     and (ec_primer_apellido is null or per.per_primer_apellido like '%'||ec_primer_apellido||'%')
                     and (ec_segundo_apellido is null or per.per_segundo_apellido like '%'||ec_segundo_apellido||'%');         
     END PRC_PERSONA_OBT;
+    --Verifica si un correo esta utilizado por otra persona
+    PROCEDURE PRC_IDENTIFICACION_CANT(en_id number, ec_valor varchar2, sn_cant out number, sc_mensaje out varchar2) IS
+    
+    BEGIN 
+        sc_mensaje:='';
+        SELECT count(*) into sn_cant
+            FROM TNEG_IDENTIFICACION IDE where  IDE.IDE_id<>en_id and IDE.IDE_numero=ec_valor;
+        IF   sn_cant<>0 THEN
+            SELECT 'La identificación ['||ec_valor|| '] ya se encuentra asignado a '|| per.per_nombre   into sc_mensaje
+                FROM TNEG_IDENTIFICACION ide, tneg_persona per where per.per_id=ide.per_id and ide.ide_id<>en_id and ide.IDE_numero=ec_valor;
+        else
+              SELECT count(*) into sn_cant
+              FROM TNEG_IDENTIFICACION IDE where  IDE.IDE_id<>en_id and SUBSTR( IDE.IDE_numero,1,10)=SUBSTR( ec_valor,1,10);
+               if(sn_cant<>0) then
+                            SELECT 'La identificación ['||ide.ide_numero|| '] ya se encuentra asignado a '|| per.per_nombre   into sc_mensaje
+                         FROM TNEG_IDENTIFICACION ide, tneg_persona per where per.per_id=ide.per_id and ide.ide_id<>en_id and ide.IDE_numero=ec_valor;
+               end if;
+        end if;       
+    END PRC_IDENTIFICACION_CANT;
 END PKG_NEG_PERSONA;
 
 

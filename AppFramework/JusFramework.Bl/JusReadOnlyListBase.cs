@@ -27,6 +27,7 @@ namespace JusFramework.Bl
 
         private static readonly string NombreMetodo = "AddParameterCriteria";
 
+        
         protected abstract Type[] RootClass { get; }
 
         protected new void DataPortal_Fetch(object criteria)
@@ -42,7 +43,14 @@ namespace JusFramework.Bl
 
         private int _totalRegistros;
         public int TotalRegistros {
-            get { return _totalRegistros; }
+            get
+            {
+                if (_totalRegistros<=0)
+                {
+                    return Count;
+                }
+                return _totalRegistros;
+            }
         }
 
         protected void Child_Fetch(object criteria)
@@ -63,8 +71,9 @@ namespace JusFramework.Bl
             ICache cache = ServiceLocator.Current.GetInstance<ICache>();
             if (cache.Contains(key))
             {
-                var itsCache = (IList<TCr>)cache.GetData(key);
-                foreach (var cr in itsCache)
+                var objCache = (CacheListBase<TCr>)cache.GetData(key);
+                _totalRegistros = objCache.TotalRegistros;
+                foreach (var cr in objCache.Data)
                 {
                     Items.Add(cr);   
                 }
@@ -123,7 +132,7 @@ namespace JusFramework.Bl
                 if (Items.Count > 1)
                 {
                     var grupo = RootClass.Aggregate(string.Empty, (current, type) => current + type + ',');
-                    cache.AddItem(key, Items, grupo.Trim(','));
+                    cache.AddItem(key, new CacheListBase<TCr> { Data = Items,TotalRegistros = _totalRegistros }, grupo.Trim(','));
                 }
             }
         }
@@ -160,5 +169,12 @@ namespace JusFramework.Bl
 
         #endregion
 
+    }
+
+    [Serializable]
+    public class CacheListBase<T>
+    {
+        public int TotalRegistros { get; set; }
+        public IList<T> Data { get; set; }
     }
 }

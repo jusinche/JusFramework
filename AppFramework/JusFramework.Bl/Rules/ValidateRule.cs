@@ -6,28 +6,27 @@ namespace JusFramework.Bl.Rules
     public class ValidateRule<T> : BusinessRule
     {
         // Declaration
-        public delegate RuleContextArg DelegateRule(T obj);
+        public delegate bool DelegateRule(T obj,RuleContextArg args);
 
-        private DelegateRule _delegateRule;
-        public ValidateRule(DelegateRule delegateRule, IPropertyInfo primaryProperty)
+        private readonly DelegateRule _delegateRule;
+        public ValidateRule(DelegateRule delegateRule, IPropertyInfo primaryProperty, IPropertyInfo secundaryProperty=null)
             : base(primaryProperty)
         {
             _delegateRule=delegateRule;
+            if (secundaryProperty!=null)
+            {
+                InputProperties.Add(primaryProperty);
+                InputProperties.Add(secundaryProperty);
+            }
         }
 
         protected override void Execute(RuleContext context)
         {
-            var regla = _delegateRule((T) context.Target);
-            if (!regla.IsValid)
+            var args=new RuleContextArg();
+            if (!_delegateRule((T) context.Target, args))
             {
-                context.AddErrorResult(regla.Description);
+                context.AddErrorResult(args.Description);
             }
         }
-    }
-
-    public class RuleContextArg
-    {
-        public string Description { get; set; }
-        public bool IsValid { get; set; }
     }
 }

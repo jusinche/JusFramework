@@ -60,13 +60,13 @@
     <Compile Include="Rules\AuthorizationRules\AuthorizationCrear.cs" />
     <Compile Include="Rules\AuthorizationRules\AuthorizationEditar.cs" />
     <Compile Include="Rules\AuthorizationRules\AuthorizationObtener.cs" />
+    <Compile Include="Rules\ListaConElementosRule.cs" />
+    <Compile Include="Rules\RuleContextArg.cs" />
     <Compile Include="Rules\ValidateRule.cs" />
-    <Compile Include="ValidacionDatos\CampoObligatorio.cs" />
+    <Compile Include="ValidacionDatos\CampoObligatorioAttribute.cs" />
     <Compile Include="ValidacionDatos\ConstantesValidaciones.cs" />
     <Compile Include="ValidacionDatos\EmailAttribute.cs" />
-    <Compile Include="ValidacionDatos\MayusculasAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="ValidacionDatos\ValidationBase.cs" />
     <Compile Include="ValidacionDatos\PersonaNombreAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

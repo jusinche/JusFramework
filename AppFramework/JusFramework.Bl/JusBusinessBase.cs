@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Csla;
 using Csla.Core;
 using Csla.Core.FieldManager;
+using JusFramework.Bl.Rules;
 using JusFramework.Dal;
 using JusFramework.Excepciones;
 using MethodInfo = System.Reflection.MethodInfo;
@@ -41,7 +41,7 @@ namespace JusFramework.Bl
         /// </summary>
         public int Version
         {
-            get { return _version; }
+            get {return _version; }
             protected set { _version = value; }
         }
 
@@ -50,10 +50,11 @@ namespace JusFramework.Bl
         {
             return DataPortal.Create<T>();
         }
-
+        
 
         public static T Get(int id)
         {
+            
             return DataPortal.Fetch<T>(id);
         }
 
@@ -61,6 +62,7 @@ namespace JusFramework.Bl
         {
             return DataPortal.Fetch<T>(obj);
         }
+
 
         #region Data Access
 
@@ -74,8 +76,7 @@ namespace JusFramework.Bl
         {
             get { return _nombreMetodo; }
         }
-
-
+        
 
         [NonSerialized] protected DatabaseConection Db;
         [NonSerialized] protected IDbCommand Comando;
@@ -243,37 +244,20 @@ namespace JusFramework.Bl
             FieldManager.UpdateChildren();
         }
 
-        //protected override void DataPortal_DeleteSelf()
-        //{
-        //    var hijos= this.FieldManager.GetChildren();
-        //    foreach (var child in hijos)
-        //    {
-
-        //    }
-        //    FieldManager.UpdateChildren();
-        //    DataPortal_Delete(Id);
-        //}
 
         protected void DataPortal_Delete(int criteria)
         {
-            //var hijos = this.FieldManager.GetChildren();
-
             //crear la conexion a la base
             if (Db == null)
             {
                 Db = DatabaseFactory.CreateDatabase();
             }
-
             Comando = Db.CreateSPCommand(BorrarSp);
-
-
             Db.AddParameterWithValue(Comando, "en_id", DbType.Int32, Id);
             Db.AddParameterWithValue(Comando, "en_version", DbType.Int32, Version);
             Db.AddParameterWithValue(Comando, "ec_usuario", DbType.String, GetUsuario);
             Db.AddParameter(Comando, "sn_reg_modificados", DbType.Int32, ParameterDirection.Output);
-
             Db.ExecuteNonQuery(Comando);
-
             int resultado;
             int.TryParse(Db.GetOutputParameterValue(Comando, "sn_reg_modificados").ToString(), out resultado);
 
@@ -282,45 +266,83 @@ namespace JusFramework.Bl
                 throw new JusException("No se modifico ningun dato");
             }
         }
-
-
-
+        
         #endregion Data Access
 
-        public List<string> BrokenRulesList
+        
+
+#region Base Rules
+        
+
+        //protected RuleContextArg ListaConElementos(RuleContext contex)
+        //{
+        //    var rule = new RuleContextArg();
+        //    if (string.IsNullOrEmpty(contex.))
+        //    {
+        //        rule.IsValid = true;
+        //        return rule;
+        //    }
+        //    //rule.Description = CodigoDuplicadoCmd.Execute(target.CorreoId, target.Correo, ProcedimientosConstantes.PrcCorreoCant);
+        //    rule.IsValid = false;
+        //    if (string.IsNullOrEmpty(rule.Description))
+        //    {
+        //        rule.IsValid = true;
+        //    }
+        //    return rule;
+        //}
+
+        public Dictionary<string, string> BrokenRulesList
         {
             get
             {
-                return GetAllBrokenRules(this);
+                return GetAllBrokenRules(this, 1);
             }
         }
-
-
-        private static List<string> GetAllBrokenRules(object obj)
+        private static Dictionary<string, string> GetAllBrokenRules(object obj, int i)
         {
-            
-            var reglas = new List<string>();
+            var reglas = new Dictionary<string, string>();
             var objBase = obj as BusinessBase;
             if (objBase != null)
             {
-                reglas.AddRange(objBase.BrokenRulesCollection.Select(brokenRule => brokenRule.Description));
-                var fielManager = (FieldDataManager)objBase.GetType().GetProperty("FieldManager", BindingFlags.NonPublic |BindingFlags.Instance).GetValue(objBase, null);
+                foreach (var brokenRule in objBase.BrokenRulesCollection)
+                {
+                    var valor = objBase.GetType().GetProperty(brokenRule.Property).GetValue(objBase, null);
+
+                    var msj = string.Empty;
+                    if ((valor as string)!= null)
+                    {
+                            msj = valor.ToString();
+                    }
+                    reglas.Add(i++ + ".) " + brokenRule.Description,msj);
+                }
+                var fielManager = (FieldDataManager)objBase.GetType().GetProperty("FieldManager", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(objBase, null);
                 if (fielManager != null)
                 {
                     foreach (var child in fielManager.GetChildren())
                     {
-                        reglas.AddRange(GetAllBrokenRules(child));
+                        var reglasRotas = GetAllBrokenRules(child, i);
+                        foreach (var reglaRota in reglasRotas)
+                        {
+                            reglas.Add(reglaRota.Key, reglaRota.Value);
+                        }
                     }
                 }
             }
             else if (obj is IEnumerable)
             {
-                foreach (var child in (IEnumerable) obj)
+                foreach (var child in (IEnumerable)obj)
                 {
-                    reglas.AddRange(GetAllBrokenRules(child));
+                    var reglasRotas = GetAllBrokenRules(child, i);
+                    foreach (var reglaRota in reglasRotas)
+                    {
+                        reglas.Add(reglaRota.Key, reglaRota.Value);
+                    }
                 }
             }
             return reglas;
         }
+#endregion Base Rules
+
+        
     }
 }

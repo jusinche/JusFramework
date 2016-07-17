@@ -33,5 +33,10 @@ namespace JusFramework.Dal.JusMongoDB
         /// Informacion de la lista
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// Total de registros
+        /// </summary>
+        public int Length { get; set; }
     }
 }

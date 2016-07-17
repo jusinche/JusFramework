@@ -3,7 +3,7 @@ using Csla.Rules;
 
 namespace JusFramework.Bl.Rules.AuthorizationRules
 {
-    public class AuthorizationBorrar : Csla.Rules.AuthorizationRule
+    public class AuthorizationBorrar : AuthorizationRule
     {
         // TODO: Add additional parameters to your rule to the constructor
         /// <summary>

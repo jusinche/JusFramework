@@ -25,7 +25,6 @@ namespace JusFramework.Dal.JusMongoDB
             _mongoCollection = mongoServer.GetCollection<CacheDataInfo>(typeof(CacheDataInfo).Name.ToLower() + "s");
         }
 
-
         public void AddItem(string key, object data, string group = null)
         {
            
@@ -35,14 +34,13 @@ namespace JusFramework.Dal.JusMongoDB
             info.Data = SerializeObject(data);
             info.EditableClass = group;
             info.ObjectList = data.GetType().FullName;
-            
-
             info.Id = Guid.NewGuid();
-
             
              _mongoCollection.InsertOne(info);
 
         }
+
+
 
         public void RemoveItem(string key, string group = null)
         {

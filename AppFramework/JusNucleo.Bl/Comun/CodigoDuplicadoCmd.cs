@@ -14,9 +14,10 @@ namespace JusNucleo.Bl.Comun
         private int _id;
         private string _valor;
         private string _sp;
+        private bool _exists;
 
 
-        public string Result { get; private set; }
+        private string _mensaje;
 
         /// <summary>
         /// Parametro de salida
@@ -27,12 +28,14 @@ namespace JusNucleo.Bl.Comun
         /// <param name="id">identificador del valor a comparar</param>
         /// <param name="valor">valor a comparar</param>
         /// <param name="sp">Nombre del store procedure</param>
+        /// <param name="mensaje"></param>
         /// <returns></returns>
-        public static string Execute(int id, string valor, string sp)
+        public static bool Exists(int id, string valor, string sp,  out string mensaje)
         {
             var cmd = new CodigoDuplicadoCmd{_id = id,_valor = valor,_sp = sp};
             cmd = DataPortal.Execute(cmd);
-            return cmd.Result;
+            mensaje = cmd._mensaje;
+            return cmd._exists;
         }
 
 
@@ -60,7 +63,8 @@ namespace JusNucleo.Bl.Comun
         {
             int existe;
             Int32.TryParse(Db.GetOutputParameterValue(Comando, "sn_cant").ToString(), out existe);
-            Result= Db.GetOutputParameterValue(Comando, "sc_mensaje").ToString();
+            _exists = existe != 0;
+            _mensaje= Db.GetOutputParameterValue(Comando, "sc_mensaje").ToString();
         }
     }
 }

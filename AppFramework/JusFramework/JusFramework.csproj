@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\IdentificacionValidation.cs" />
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Cache\ICacheable.cs" />

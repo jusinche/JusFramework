@@ -55,8 +55,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_NEG_CORREO AS
             FROM TNEG_CORREO cor, tneg_persona per where per.per_id=cor.per_id and cor.cor_id<>en_id and cor.COR_CORREO=ec_valor;
        else
        sc_mensaje:='';
-       end if;
-       
+       end if;       
     END PRC_CORREO_CANT;
 END PKG_NEG_CORREO;
 
