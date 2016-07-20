@@ -26,7 +26,6 @@ namespace JusFramework.Bl
         #region Data Access
 
         private static readonly string NombreMetodo = "AddParameterCriteria";
-
         
         protected abstract Type[] RootClass { get; }
 
@@ -137,8 +136,6 @@ namespace JusFramework.Bl
             }
         }
         protected abstract List<TCr> OrdenarList(List<TCr> lista);
-
-
 
         private string Getkey(object criteria)
         {

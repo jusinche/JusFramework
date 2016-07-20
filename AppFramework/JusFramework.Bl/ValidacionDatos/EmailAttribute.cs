@@ -7,7 +7,7 @@ namespace JusFramework.Bl.ValidacionDatos
     public class EmailAttribute : ValidationBaseAttribute
     {
          public EmailAttribute()
-            : base(ConstantesValidaciones.NombrePersonaReg)
+            : base(ConstantesValidaciones.EmailReg)
 
          {
              ErrorMessage = "Ingrese una dirección de correo electrónica valida.";

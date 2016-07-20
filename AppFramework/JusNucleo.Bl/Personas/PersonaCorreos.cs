@@ -81,7 +81,7 @@ namespace JusNucleo.Bl.Personas
                 return true;
             }
             string msj;
-            if (CodigoDuplicadoCmd.Exists(obj.CorreoId, obj.Correo, ProcedimientosConstantes.PrcCorreoCant,out msj))
+            if (!CodigoDuplicadoCmd.Exists(obj.CorreoId, obj.Correo, ProcedimientosConstantes.PrcCorreoCant,out msj))
             {
                 return  true;
             }

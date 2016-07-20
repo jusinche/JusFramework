@@ -149,12 +149,13 @@ namespace JusNucleo.Bl.Personas
 
         private bool IdentificacionDuplicada(PersonaNatural obj, RuleContextArg args)
         {
+            //args.Description = "Número de Identificación es Invalido";
             if (string.IsNullOrEmpty(obj.Identificacion))
             {
                 return true;
             }
             string msj;
-            if (CodigoDuplicadoCmd.Exists(obj.Id, obj.Identificacion, ProcedimientosConstantes.PrcCorreoCant, out msj))
+            if (!CodigoDuplicadoCmd.Exists(obj.Id, obj.Identificacion, ProcedimientosConstantes.PrcCorreoCant, out msj))
             {
                 return true;
             }

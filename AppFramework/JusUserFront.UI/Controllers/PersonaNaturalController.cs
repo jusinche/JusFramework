@@ -67,6 +67,14 @@ namespace JusUserFront.UI.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Csla.Web.Mvc.HasPermission(Csla.Rules.AuthorizationActions.CreateObject, typeof(PersonaNatural))]
+        public ActionResult Edit(PersonaNatural personaId)
+        {
+            ViewData.Model = PersonaNatural.Get(personaId);
+            return View();
+        }
+
         public ActionResult CrearCorreo()
         {
             return View("PersonaCorreo");

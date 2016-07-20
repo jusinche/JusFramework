@@ -5,13 +5,12 @@ using Csla.Rules;
 
 namespace JusFramework.Bl.Rules
 {
+    /// <summary>
+    /// Valida que una lista hija contenga al menos un elemento
+    /// </summary>
     [Serializable]
     public class ListaConElementosRule: BusinessRule
     {
-        // Declaration
-        //public delegate RuleContextArg DelegateRule(T obj, IPropertyInfo primaryProperty,RuleContextArg args);
-
-        //private DelegateRule _delegateRule;
         public ListaConElementosRule(IPropertyInfo primaryProperty)
             : base(primaryProperty)
         {
